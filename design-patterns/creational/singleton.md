@@ -17,7 +17,6 @@ Think of it like:
 - One central authority
 - Everyone refers to the same source
 
----
 
 ## 2. Why Do We Need Singleton?
 
@@ -37,7 +36,7 @@ This leads to:
 - Unexpected behavior
 - Performance issues
 
----
+
 
 ## 3. Example: Bank Configuration
 
@@ -59,7 +58,7 @@ This causes **business inconsistency**.
 
 👉 **Singleton ensures one shared configuration object**
 
----
+
 
 ## 4. Core Idea Behind Singleton (How It Works)
 
@@ -74,7 +73,7 @@ This is achieved by:
 - Storing the object in a `static` variable
 - Providing a `static` method to access it
 
----
+
 
 ## 5. Simple Example (Easy to Understand)
 
@@ -104,7 +103,7 @@ public class BankConfig {
 
 - `getInstance()` → controls object creation
 
----
+
 
 ## 6. Why This Simple Version Is NOT Enough
 
@@ -119,7 +118,7 @@ In real systems:
 This breaks the **only one instance**  rule
 ⚠️ Especially dangerous in banking systems
 
----
+
 
 ## 7. Thread-Safe Singleton (Real-World Ready)
 ```java
@@ -155,7 +154,7 @@ This version:
 
 - Is commonly discussed in interviews
 
-----
+-
 
 ## 8. Best and Cleanest Singleton in Java (Enum)
 ```java
@@ -191,7 +190,7 @@ public enum BankRole {
 
 👉 Many senior developers prefer this approach
 
----
+
 
 ## 9. Singleton in Spring Boot 
 
@@ -217,7 +216,7 @@ So:
 
 👉 Singleton pattern is still important to understand, not always to implement
 
----
+
 
 ## 10. Alternatives to Singleton (Modern Approach)
 ### Dependency Injection (Preferred)
@@ -243,7 +242,7 @@ Why this is better:
 
 - Cleaner design
 
----
+
 
 ## 11. When NOT to Use Singleton
 
@@ -259,7 +258,7 @@ Avoid Singleton when:
 
 Singleton is **powerful**, but dangerous if misused.
 
----
+
 
 ## 12. Summary
 
