@@ -229,7 +229,7 @@ So:
 
 Instead of:
 
-```java
+```
 BankConfig.getInstance();
 ```
 
