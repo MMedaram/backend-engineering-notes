@@ -1,9 +1,20 @@
 ---
-title: Backend Engineering Notes
+title: Home
+nav_order: 1
 ---
 
 # Backend Engineering Notes
 
-Welcome!  
-This site contains my learning notes on Java, Spring Boot,
-Microservices, Kafka, and Design Patterns.
+This site contains my learning notes on:
+
+- Java
+- Spring Boot
+- Microservices
+- JPA / Hibernate
+- Kafka
+- Design Patterns
+
+📘 Purpose:
+- Personal learning log
+- Interview reference
+- Future monetization (articles / PDFs)

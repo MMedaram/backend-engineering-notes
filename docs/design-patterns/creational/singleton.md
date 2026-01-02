@@ -1,3 +1,8 @@
+---
+title: Singleton Pattern
+parent: Design Patterns
+---
+
 # Singleton Design Pattern
 
 ## 1. What is Singleton?
@@ -225,7 +230,7 @@ So:
 Instead of:
 
 ```java
-BankConfig.getInstance()
+BankConfig.getInstance();
 ```
 
 We use:

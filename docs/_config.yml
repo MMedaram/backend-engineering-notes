@@ -1,0 +1,12 @@
+title: Backend Engineering Notes
+description: Java, Spring Boot, Microservices, Kafka, Design Patterns
+theme: just-the-docs
+
+url: https://mmedaram.github.io
+baseurl: /backend-engineering-notes
+
+aux_links:
+  GitHub Repository:
+    - https://github.com/mmedaram/backend-engineering-notes
+
+search_enabled: true
