@@ -5,8 +5,11 @@ theme: just-the-docs
 url: https://mmedaram.github.io
 baseurl: /backend-engineering-notes
 
+source: docs
+
+search_enabled: true
+
 aux_links:
   GitHub Repository:
     - https://github.com/mmedaram/backend-engineering-notes
 
-search_enabled: true
