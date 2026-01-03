@@ -1,9 +1,11 @@
 ---
 title: Singleton Pattern
-parent: Design Patterns
+parent: Creational Patterns
+nav_order: 1
+
 ---
 
-# Singleton Design Pattern
+# Singleton Pattern
 
 ## 1. What is Singleton?
 

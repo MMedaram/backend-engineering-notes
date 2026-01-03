@@ -1,6 +1,7 @@
 ---
 title: Design Patterns
-nav_order: 5
+parent: Backend Engineering Notes
+nav_order: 4
 ---
 
 # Design Patterns
