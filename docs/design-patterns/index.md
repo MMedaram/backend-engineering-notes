@@ -23,7 +23,7 @@ That’s why we have:
 ---
 
 ### 1️⃣ Creational Patterns:
-        Who creates the object, when, and how?
+> Who creates the object, when, and how?
 
 Directly creating objects using **new**:
 
@@ -46,7 +46,8 @@ Creational patterns:
 ---
 
 ### 2️⃣ Structural Patterns
-        👉 “How objects are connected or composed”
+
+> 👉 “How objects are connected or composed”
 
 As systems grow:
 - Classes increase
@@ -69,7 +70,9 @@ Structural patterns:
 ---
 
 ### 3️⃣ Behavioral Patterns
-        👉 “How objects communicate and behave”
+> 👉 “How objects communicate and behave”
+
+
 In real applications:
 - Many objects talk to each other
 - Logic gets scattered
@@ -87,8 +90,3 @@ Behavioral patterns:
 - **Template Method**
 - **State**
 - **Chain of Responsibility**
-
-
-
-
-
