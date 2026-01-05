@@ -89,6 +89,7 @@ Use when:
 
 - Very simple CRUD requirements
 - Minimal functionality needed
+
 ---
 
 ### PagingAndSortingRepository

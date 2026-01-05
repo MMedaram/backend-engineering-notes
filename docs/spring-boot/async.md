@@ -1,10 +1,10 @@
 ---
-title: @Async in Spring Boot
+title: Async in Spring Boot
 parent: Spring Boot
 nav_order: 1
-
 ---
-# @Async in Spring Boot
+
+# Async in Spring Boot
 
 
 ### What is @Async?
