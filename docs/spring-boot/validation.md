@@ -1,7 +1,7 @@
 ---
 title: Validation in Spring Boot
 parent: Spring Boot
-nav_order: 3
+nav_order: 4
 ---
 
 # Validation in Spring Boot
