@@ -31,38 +31,6 @@ Business requirement:
 
 ## Project Structure (Minimal & Clean)
 
----
-title: How Spring Boot Works (End-to-End)
-parent: Spring Boot
-nav_order: 0
----
-
-# How Spring Boot Works (End-to-End)
-
-This document explains **how Spring Boot works internally** using a
-simple real-world example: a **BRANCH service** with:
-
-- 1 Controller
-- 1 Service
-- 1 Repository
-- 1 Entity
-- 1 DTO
-- Default configurations
-
-The goal is to understand **what happens when the application starts**
-and **how a request flows through the system**.
-
----
-
-## Example Application: BRANCH Service
-
-Business requirement:
-> Expose an API to fetch branch details by branch code.
-
----
-
-## Project Structure (Minimal & Clean)
-
 ```
 branch-service
 │
