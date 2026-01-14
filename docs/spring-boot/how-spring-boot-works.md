@@ -227,6 +227,7 @@ Purpose:
 ## 7️⃣ Service Layer
 
 ```java
+
 @Service
 public class BranchService {
 
@@ -251,6 +252,7 @@ public class BranchService {
         return dto;
     }
 }
+
 ```
 
 Responsibilities:
@@ -332,7 +334,7 @@ This is Dependency Injection + IoC.
 
 ```properties
 server.port=8080
-spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.url=jdbc:h2:mem:TEST_DB
 spring.jpa.show-sql=true
 ```
 
@@ -370,7 +372,7 @@ Spring Boot:
 ---
 ## Interview-Ready Answer
 
-> Spring Boot works by auto-configuring components based on the classpath, creating and managing beans using IoC, starting an embedded server, and routing requests through controllers, services, and repositories.
+> Spring Boot works by AUTO CONFIGURING components based on the classpath, creating and managing beans using IoC, starting an embedded server, and routing requests through controllers, services, and repositories.
 
 ### Key Takeaways
 
