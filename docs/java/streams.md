@@ -58,11 +58,8 @@ Streams solve this by providing:
 
 Collections:
 
-```
-for (String s : list) {
+> for (String s : list) { }
 
-}
-```
 
 Streams:
 
@@ -78,13 +75,13 @@ Streams:
 
 <details>
 
-A stream pipeline consists of:
+### A stream pipeline consists of:
 
-- Source
-- Intermediate operation(s)
-- Terminal operation
+- Source     
+- Intermediate operation(s)      
+- Terminal operation       
 
-> Source → Intermediate Ops → Terminal Op
+> Source → Intermediate Ops → Terminal Op      
 
 Without a terminal operation:
 

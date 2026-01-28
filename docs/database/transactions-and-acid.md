@@ -168,7 +168,8 @@ Even if:
 
 - Power failure
 - Server crash
-- Data must remain safe.     
+- Data must remain safe      
+
 ---
 
 ## ACID in Microservices Context (Preview)
