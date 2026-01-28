@@ -73,7 +73,6 @@ Streams:
 
 ## Stream Pipeline Structure
 
-<details>
 
 ### A stream pipeline consists of:
 
@@ -87,4 +86,3 @@ Without a terminal operation:
 
 - Nothing executes.
 
-</details>
