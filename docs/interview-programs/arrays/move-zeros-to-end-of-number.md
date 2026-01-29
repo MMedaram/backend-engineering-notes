@@ -1,6 +1,6 @@
 ---
 title: Move Zeros to End of Number (Preserving Order)
-parent: arrays
+parent: Array
 nav_order: 1
 ---
 
