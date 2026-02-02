@@ -1,7 +1,7 @@
 ---
 title:  List.sort() vs stream().sorted()
-parent: X vs Y
-nav_order: 2
+parent: Collections-Streams
+nav_order: 1
 ---
 
 # List.sort() vs stream().sorted()

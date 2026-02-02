@@ -1,8 +1,8 @@
----
+_---
 title:  Exception vs Error
-parent: X vs Y
-nav_order: 33
----
+parent: Exceptions
+nav_order: 1
+---_
 
 # Exception vs Error
 

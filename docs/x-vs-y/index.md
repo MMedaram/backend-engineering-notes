@@ -35,3 +35,7 @@ This section captures **clear, concise, and interview-ready differences**.
 
 ---
 
+- Basic -- 
+- Exception Handling 
+- Collections and Streams
+- Spring

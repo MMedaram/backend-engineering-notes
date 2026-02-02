@@ -1,7 +1,7 @@
 ---
 title: Java Streams (Java 8+)
 parent: Java
-nav_order: 7
+nav_order: 10
 ---
 
 # Java Streams (Java 8+)

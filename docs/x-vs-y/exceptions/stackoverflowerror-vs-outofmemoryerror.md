@@ -1,7 +1,7 @@
 ---
 title:  StackOverflowError vs OutOfMemoryError
-parent: X vs Y
-nav_order: 32
+parent: Exceptions
+nav_order: 4
 ---
 
 # StackOverflowError vs OutOfMemoryError

@@ -1,7 +1,7 @@
 ---
 title:  map vs flatMap (Java 8 Streams)
-parent: X vs Y
-nav_order: 1
+parent: Collections-Streams
+nav_order: 2
 ---
 
 # map vs flatMap (Java 8 Streams)

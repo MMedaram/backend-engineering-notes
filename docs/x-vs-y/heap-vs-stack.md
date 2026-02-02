@@ -1,7 +1,7 @@
 ---
 title:  Heap vs Stack
 parent: X vs Y
-nav_order: 34
+nav_order: 21
 ---
 
 # Heap vs Stack

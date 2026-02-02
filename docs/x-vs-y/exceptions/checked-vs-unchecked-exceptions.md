@@ -1,7 +1,7 @@
 ---
 title:  Checked Exceptions vs Unchecked Exceptions
-parent: X vs Y
-nav_order: 31
+parent: Exceptions
+nav_order: 2
 ---
 
 # Checked Exceptions vs Unchecked Exceptions
