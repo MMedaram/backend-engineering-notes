@@ -1,7 +1,7 @@
 ---
 title: Microservices Transactional Boundaries
 parent: Microservices Architecture
-nav_order: 3
+nav_order: 11
 ---
 
 # Microservices Transactional Boundaries
