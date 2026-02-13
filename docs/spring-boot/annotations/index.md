@@ -1,5 +1,5 @@
 ---
-title: ANNOTATIONS
+title: Annotations
 parent: Spring Boot
 nav_order: 1
 ---

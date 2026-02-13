@@ -1,10 +1,10 @@
 ---
 title: @Conditional 
-parent: ANNOTATIONS
+parent: Annotations
 nav_order: 31
 ---
 
-# @Conditional in Spring Framework
+# @Conditional
 
 `@Conditional` is a Spring annotation used to register a bean **only if a specific condition is satisfied**.
 
