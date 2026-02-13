@@ -1,5 +1,5 @@
 ---
-title: @Conditional 
+title: Conditional 
 parent: Annotations
 nav_order: 31
 ---

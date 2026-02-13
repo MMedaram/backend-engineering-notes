@@ -1,5 +1,5 @@
 ---
-title: @ConfigurationProperties 
+title: ConfigurationProperties 
 parent: Annotations
 nav_order: 30
 ---
