@@ -1,7 +1,7 @@
 ---
 title: Spring Data JPA
 parent: Spring Boot
-nav_order: 1
+nav_order: 2
 ---
 
 # Spring Data JPA

@@ -1,5 +1,5 @@
 ---
-title: API Gateway in Microservices
+title: API Gateway
 parent: Microservices Architecture
 nav_order: 4
 ---
