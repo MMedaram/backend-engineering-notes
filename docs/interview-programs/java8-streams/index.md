@@ -1,6 +1,6 @@
 ---
 title: Java8+ Real world Examples(Employee)  
-parent: Interview Programs – Java
+parent: Programs – Java
 nav_order: 3
 ---
 

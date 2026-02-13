@@ -1,6 +1,6 @@
 ---
 title: Array
-parent: Interview Programs – Java
+parent: Programs – Java
 nav_order: 1
 ---
 
