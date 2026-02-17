@@ -8,9 +8,7 @@ nav_order: 3
 
 
 ### TODO 
-- map vs flatMap
-- stream vs parallelStream
-- forEach vs forEachOrdered
+
 - filter vs map
 - collect vs forEach
 - findFirst vs findAny

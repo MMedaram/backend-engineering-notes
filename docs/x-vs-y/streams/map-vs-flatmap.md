@@ -13,7 +13,7 @@ If mapping creates a **nested structure**, use **flatMap**.
 
 ---
 
-## 🔍 Top Differences
+## Top Differences
 
 | Feature | map | flatMap |
 |------|-----|---------|
