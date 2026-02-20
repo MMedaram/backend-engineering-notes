@@ -216,7 +216,7 @@ Wrong indexing can:
 
 ---
 
-## Interview-Ready Summary
+## Summary
 
 - Index is a separate data structure
 - Uses extra storage

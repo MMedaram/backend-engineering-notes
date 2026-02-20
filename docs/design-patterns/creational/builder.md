@@ -235,7 +235,6 @@ Common builder usage in banking:
 - Transaction filters
 - Report configuration objects
 
-## Interview Answer
 
 > I used the Builder pattern to create complex domain objects with many optional fields. It improved readability, avoided constructor overloads, and made object creation safer.
 

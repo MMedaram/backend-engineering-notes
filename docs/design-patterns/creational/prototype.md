@@ -142,8 +142,6 @@ Prototype is rare in banking apps, but may appear in:
 
 ---
 
-## Interview Answer
-
 > Prototype pattern creates new objects by cloning existing ones.
 > It’s rarely used directly in business applications but appears in scenarios like cloning, prototype-scoped Spring beans, and performance-sensitive systems.
 

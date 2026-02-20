@@ -160,7 +160,6 @@ This version:
 
 - Is efficient
 
-- Is commonly discussed in interviews
 
 ----
 

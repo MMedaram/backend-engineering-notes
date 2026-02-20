@@ -338,11 +338,10 @@ Spring Boot:
 - ❌ Mixing responsibilities
 
 ---
-## Interview-Ready Answer
 
 > Spring Boot works by AUTO CONFIGURING components based on the classpath, creating and managing beans using IoC, starting an embedded server, and routing requests through controllers, services, and repositories.
 
-### Key Takeaways
+### Summary
 
 - Spring Boot is convention over configuration
 - Auto-configuration is classpath-driven
@@ -351,7 +350,6 @@ Spring Boot:
 - Services handle business logic
 - Repositories handle data access
 
-### Final Takeaway
 
 > Spring Boot lets you focus on business logic by handling infrastructure, configuration, and lifecycle for you.
 

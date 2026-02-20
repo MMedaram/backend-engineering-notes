@@ -52,7 +52,6 @@ JVM consists of **four main components**:
 - **Extension / Platform ClassLoader**
 - **Application ClassLoader** → loads application classes
 
-### Interview Point
 > JVM follows **Parent Delegation Model**
 
 ---
@@ -142,7 +141,6 @@ Responsible for executing bytecode.
 - Runs automatically
 - Frees memory
 
-### Interview Point
 > JVM first interprets code, then JIT optimizes hot code.
 
 ---

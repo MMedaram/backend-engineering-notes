@@ -38,7 +38,6 @@ Knowing the lifecycle helps you:
 - Clean up resources safely
 - Avoid startup bugs
 - Understand AOP, transactions, and proxies
-- Answer interview questions confidently
 
 ---
 
@@ -272,7 +271,6 @@ public class MyBean implements DisposableBean {
 
 ---
 
-#### Interview-Ready Answer
 
 > Spring bean lifecycle describes the phases a bean goes through from instantiation, dependency injection, initialization callbacks, post-processing, usage, and finally destruction when the application shuts down.
 

@@ -273,7 +273,7 @@ There are **7 major GC types**.
 
 ---
 
-## Interview Key Takeaways
+## Summary
 
 - GC is automatic in Java
 - Objects are removed based on reachability

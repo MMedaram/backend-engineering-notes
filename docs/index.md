@@ -8,8 +8,8 @@ nav_order: 1
 A curated knowledge base of backend engineering concepts, written as **clear, concise, and practical notes**.
 
 This repository serves as:
-- 📘 A personal learning log
-- 🧠 An interview reference
+-  A personal learning log
+-  An interview reference
 
 👉 **Live site:**  
 https://mmedaram.github.io/backend-engineering-notes/

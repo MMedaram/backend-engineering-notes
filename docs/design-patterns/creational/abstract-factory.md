@@ -222,15 +222,9 @@ Real usages:
 
 ---
 
-### Interview Answer
 
 > I used Abstract Factory to create related services like payment, notification, and audit components together. It ensured consistent combinations and made switching payment channels easy without modifying business logic.
 
-Common Interview Mistakes:    
-
-❌ Confusing it with Factory Method  
-❌ Using it when simple factory is enough  
-❌ Over-designing small systems  
 
 ---
 

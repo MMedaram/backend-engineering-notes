@@ -228,6 +228,5 @@ public class AppConfigCache {
 
 > Banking systems prefer stateless + singleton design.
  
-## Interview-Ready Answer 
 > Bean scope defines the lifecycle and visibility of a bean instance. Singleton is the default scope, prototype creates a new instance per request, and web scopes like request and session are used in web applications.
 

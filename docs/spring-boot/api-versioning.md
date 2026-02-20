@@ -358,7 +358,6 @@ In microservices:
 
 ---
 
-### Interview-Ready Answer
 
 > API versioning allows APIs to evolve without breaking existing clients.
 > I’ve used URI-based versioning with separate controllers per version, 

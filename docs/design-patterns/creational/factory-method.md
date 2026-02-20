@@ -189,8 +189,6 @@ Common factory usages:
 
 ---
 
-### Interview Answer
-
 > I used Factory Method pattern to create different payment processors based on payment type. It helped decouple object creation from business logic and allowed easy extension without modifying existing code.
 
 ---
