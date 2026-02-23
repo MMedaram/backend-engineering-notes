@@ -1,7 +1,7 @@
 ---
 title: Method Overriding - Rules
 parent: Java
-nav_order: 4
+nav_order: 14
 ---
 
 # Method Overriding - Rules

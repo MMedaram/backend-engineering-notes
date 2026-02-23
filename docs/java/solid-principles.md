@@ -1,7 +1,7 @@
 ---
 title: SOLID Principles
 parent: Java
-nav_order: 3
+nav_order: 13
 ---
 
 # SOLID Principles

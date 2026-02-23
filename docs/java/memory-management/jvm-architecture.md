@@ -1,6 +1,6 @@
 ---
 title: JVM Architecture
-parent: Java
+parent: Memory-Management
 nav_order: 1
 ---
 
@@ -8,16 +8,16 @@ nav_order: 1
 
 **JVM (Java Virtual Machine)** is a virtual machine that:
 
-- Executes Java **bytecode**
-- Manages **memory**
 - Handles **class loading**
+- Manages **memory**
+- Executes Java **bytecode**
 - Provides **platform independence**
 
-Java code is written once and runs anywhere because of JVM.
+> Java code is written once and runs anywhere because of JVM.
 
 ---
 
-## High-Level JVM Architecture
+![img.png](jvm_arch.png)
 
 JVM consists of **four main components**:
 
@@ -35,22 +35,24 @@ JVM consists of **four main components**:
 
 ### Steps involved
 1. **Loading**
-    - Reads `.class` file
-    - Creates Class object
+    - Reads .class files and stores class metadata in the Method Area.
+    - Creates a Class object in the heap representing the loaded class.
 
-2. **Linking**
-    - **Verification** → checks bytecode safety
+2. **Linking** : Responsible for preparing the loaded class for execution. It includes three steps:
+    
+    - **Verification** → Ensures the bytecode follows JVM rules and is safe to execute.
     - **Preparation** → allocates memory for static variables
-    - **Resolution** → resolves symbolic references
+    - **Resolution** → Converts symbolic references into direct references in memory.
 
 3. **Initialization**
     - Executes static blocks
     - Assigns actual static values
 
 ### Types of Class Loaders
-- **Bootstrap ClassLoader** → loads core Java classes
-- **Extension / Platform ClassLoader**
-- **Application ClassLoader** → loads application classes
+- **Bootstrap ClassLoader** → Loads core Java classes (JAVA_HOME/lib).
+- **Extension / Platform ClassLoader**  → Loads classes from extensions directory (JAVA_HOME/jre/lib/ext).
+- **Application ClassLoader** → Loads classes from the application classpath.
+
 
 > JVM follows **Parent Delegation Model**
 
@@ -59,7 +61,6 @@ JVM consists of **four main components**:
 ## 2️⃣ Runtime Data Areas (Memory)
 
 This is where data is stored while the program runs.
-
 
 ### 2.1 Method Area (Shared)
 
@@ -123,7 +124,9 @@ Used when Java interacts with OS-level code.
 
 ## 3️⃣ Execution Engine
 
-Responsible for executing bytecode.
+Execution engine executes the **.class** (bytecode).   
+It reads the byte-code line by line, uses data and information present in various memory area and executes instructions.    
+It can be classified into three parts:
 
 ### Components
 
@@ -169,7 +172,7 @@ Responsible for executing bytecode.
 
 - **Stack** → Method calls
 - **Heap** → Objects
-- **Method Area** → Class info
+- **Method Area** → Class info and static variables
 
 ---
 

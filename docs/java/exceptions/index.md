@@ -1,7 +1,7 @@
 ---
-title: Exception Hierarchy
+title: Exceptions
 parent: Java
-nav_order: 20
+nav_order: 2
 ---
 
 # Exception Hierarchy

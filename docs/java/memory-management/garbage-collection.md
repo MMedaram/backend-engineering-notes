@@ -1,6 +1,6 @@
 ---
 title: Garbage Collection (GC)
-parent: Java
+parent: Memory-Management
 nav_order: 2
 ---
 
