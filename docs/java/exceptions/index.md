@@ -1,5 +1,5 @@
 ---
-title: Exceptions
+title: Exception-Handling
 parent: Java
 nav_order: 2
 ---
