@@ -10,7 +10,7 @@ This section contains Java interview programs focused on:
 - Java 8+ (Streams, Collections, Optional)
 - Real-world entity-based problems
 
-## 📂 Categories
+## Categories
 
 ### 🔹 Arrays
 - Two Sum
