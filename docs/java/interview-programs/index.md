@@ -1,7 +1,7 @@
 ---
 title: Programs – Java
-parent: Backend Engineering Notes
-nav_order: 1
+parent: Java
+nav_order: 5
 ---
 
 ## Overview
