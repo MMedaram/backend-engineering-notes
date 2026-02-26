@@ -20,7 +20,7 @@ Unlike rebase, merge does NOT rewrite history.
 
 ## Basic Syntax
 
-> git merge <branch-name>
+> git merge branch-name
 
 Example:
 

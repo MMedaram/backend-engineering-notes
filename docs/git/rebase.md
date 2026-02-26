@@ -29,7 +29,7 @@ Instead of creating a merge commit (like `git merge`), rebase rewrites history t
 
 ## Syntax
 
-> git rebase <base-branch>
+> git rebase base-branch
 
 Example:
 
@@ -121,7 +121,7 @@ Safe:
 
 ## Interactive Rebase (Advanced)
 
-> git rebase -i <base-branch>
+> git rebase -i base-branch
 
 Used to:
 - Squash commits
@@ -154,7 +154,7 @@ If something goes wrong:
 
 You can restore previous state:
 
-> git reset --hard <old-commit>
+> git reset --hard old-commit
 
 Reflog is your safety net after rebase mistakes.
 

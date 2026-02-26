@@ -29,7 +29,7 @@ It is used to:
 
 ### Basic Syntax
 
-> git rebase -i HEAD~<number_of_commits>
+> git rebase -i HEAD~number_of_commits
 
 Example:
 

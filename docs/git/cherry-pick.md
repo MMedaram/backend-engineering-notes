@@ -18,13 +18,13 @@ It is used when you do NOT want to merge the full branch, but only need selected
 
 ## Syntax
 
-> git cherry-pick <commit-hash>
+> git cherry-pick commit-hash
 
 Example:
 
 > git cherry-pick a1b2c3d
 
-The common ways to get <commit-hash>.
+The common ways to get commit-hash.
 
 > git log main --oneline
 
@@ -60,7 +60,7 @@ Solution:
 
 > git switch release-1.0
 
-> git cherry-pick <hash-of-C>
+> git cherry-pick hash-of-Commit
 
 ---
 
@@ -73,7 +73,7 @@ Solution:
 
 > git switch feature-B
 
-> git cherry-pick <commit-hash>
+> git cherry-pick commit-hash
 
 ---
 
@@ -81,11 +81,11 @@ Solution:
 
 Cherry-pick multiple specific commits:
 
-> git cherry-pick <commit-hash1> <commit-hash2> <commit-hash3>
+> git cherry-pick commit-hash1 commit-hash2 commit-hash3
 
 Cherry-pick a range:
 
-> git cherry-pick <start-commit>^..<end-commit>
+> git cherry-pick start-commit^..end-commit
 
 Example:
 
@@ -161,7 +161,7 @@ Instead use:
 
 Cherry-pick without auto commit:
 
-> git cherry-pick -n <commit-hash>
+> git cherry-pick -n commit-hash
 
 - This applies changes but does NOT create a commit.
 - Useful when combining multiple commits manually.

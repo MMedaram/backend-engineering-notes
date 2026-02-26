@@ -75,7 +75,7 @@ Annotated tags are best practice for release management.
 
 If you want to tag an older commit:
 
-> git tag -a v14.8.0 <commit-hash> -m "Release version 14.8.0"
+> git tag -a v14.8.0 commit-hash -m "Release version 14.8.0"
 
 Example:
 
