@@ -1,7 +1,7 @@
 ---
 title: Spring Boot Actuator
-parent: Spring Boot
-nav_order: 4
+parent: Observability
+nav_order: 1
 ---
 
 # Spring Boot Actuator

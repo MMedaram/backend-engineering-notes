@@ -1,6 +1,6 @@
 ---
 title: Spring Bean Lifecycle
-parent: Spring Boot
+parent: Spring Core
 nav_order: 2
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Transactions
-parent: Spring Data JPA
-nav_order: 9
+parent: Spring Core
+nav_order: 5
 ---
 
 # Transactions in Spring Data JPA

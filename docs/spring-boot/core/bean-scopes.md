@@ -1,7 +1,7 @@
 ---
 title: Bean Scopes in Spring
-parent: Spring Boot
-nav_order: 3
+parent: Spring Core
+nav_order: 4
 ---
 
 # Bean Scopes in Spring

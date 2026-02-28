@@ -1,7 +1,7 @@
 ---
 title: Async in Spring Boot
-parent: Spring Boot
-nav_order: 1
+parent: Spring Web
+nav_order: 3
 ---
 
 # Async in Spring Boot

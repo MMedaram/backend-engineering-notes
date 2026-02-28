@@ -1,7 +1,7 @@
 ---
 title: Caching Concepts and Usage
-parent: Spring Boot
-nav_order: 2
+parent: Cache
+nav_order: 1
 ---
 
 # Caching Concepts and Usage

@@ -13,3 +13,6 @@ They do not change the logic directly, but they **instruct frameworks or tools h
 For example, `@Override` tells the compiler that a method overrides a parent method, and `@Component` tells Spring to manage that class as a bean.
 
 In simple terms: **annotations give extra instructions about your code without changing its core behavior.**
+
+
+

@@ -1,7 +1,7 @@
 ---
 title: Spring Boot Profiles
-parent: Spring Boot
-nav_order: 5
+parent: Spring Core
+nav_order: 3
 ---
 
 # Spring Boot Profiles

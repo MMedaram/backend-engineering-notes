@@ -1,7 +1,7 @@
 ---
 title: API Versioning
-parent: Spring Boot
-nav_order: 5
+parent: Spring Web
+nav_order: 2
 ---
 
 # API Versioning
