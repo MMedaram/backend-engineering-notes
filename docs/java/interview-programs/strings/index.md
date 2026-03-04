@@ -16,7 +16,7 @@ Once created, a `String` **cannot be modified**.
 
 ---
 
-## 🔒 Why String is Immutable?
+## Why String is Immutable?
 - Security (used in URLs, DB connections, class loading)
 - Thread safety
 - Caching & String Pool optimization
@@ -24,7 +24,7 @@ Once created, a `String` **cannot be modified**.
 
 ---
 
-## 🧠 String Pool 
+## String Pool 
 - String literals go to **String Pool**
 - `new String("abc")` creates object in **heap**
 - `intern()` moves string to pool
@@ -37,7 +37,7 @@ String c = new String("java"); // different reference
 
 ---
 
-## 🔁 Common String Operations 
+## Common String Operations 
 
 ### 🔹 Length & Access
 - length()
@@ -77,7 +77,7 @@ String c = new String("java"); // different reference
 - split()
 - String.join()
 
-### 🆕 Java 11+ String Enhancements (Very Important)
+### Java 11+ String Enhancements (Very Important)
 
 - isBlank()       // checks whitespace only
 - lines()         // stream of lines
@@ -91,7 +91,7 @@ String c = new String("java"); // different reference
 > 
 > "ab\ncd".lines();
 
-### 🆕 Java 12+ / 15+ Updates (FYI)
+### Java 12+ / 15+ Updates (FYI)
 
 - Compact Strings (internal optimization)
 
@@ -105,7 +105,7 @@ String json = """
 """;
 ```
 
-## ⚙️ Mutable Alternatives
+## Mutable Alternatives
 
 ### 🔹 StringBuilder
 
@@ -119,4 +119,4 @@ String json = """
 - Thread-safe
 - Slower
 
-> 👉 Use StringBuilder in almost all cases.
+> Use StringBuilder in almost all cases.

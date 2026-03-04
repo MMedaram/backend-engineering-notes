@@ -1,5 +1,5 @@
 ---
-title: Streams
+title: Stream API
 parent: Java-8
 nav_order: 2
 ---
