@@ -1,5 +1,5 @@
 ---
-title: Find First Repeating Char in a given String
+title: First Repeating Char
 parent: Strings
 nav_order: 4
 ---

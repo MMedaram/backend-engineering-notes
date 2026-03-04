@@ -1,5 +1,5 @@
 ---
-title: Employee Grouping Problems (Java 8+)
+title: Grouping Problems
 parent: Java8+ Real world Examples(Employee)
 nav_order: 3
 ---

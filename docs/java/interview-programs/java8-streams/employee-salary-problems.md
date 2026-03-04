@@ -1,5 +1,5 @@
 ---
-title: Find Nth Highest Salary Employee in Each Department
+title: Nth Highest Salary
 parent: Java8+ Real world Examples(Employee)
 nav_order: 2
 ---

@@ -1,5 +1,5 @@
 ---
-title: Move Zeros to End of Number (Preserving Order)
+title: Move 0's to End of Number
 parent: Array
 nav_order: 1
 ---

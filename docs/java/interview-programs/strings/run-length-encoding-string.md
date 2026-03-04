@@ -1,5 +1,5 @@
 ---
-title: Run Length Encoding of a String
+title: Run Length Encoding of String
 parent: Strings
 nav_order: 1
 ---

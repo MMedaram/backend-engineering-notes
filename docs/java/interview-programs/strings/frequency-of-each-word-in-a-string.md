@@ -1,5 +1,5 @@
 ---
-title: Frequency of each word using streams
+title: Frequency of Words
 parent: Strings
 nav_order: 3
 ---

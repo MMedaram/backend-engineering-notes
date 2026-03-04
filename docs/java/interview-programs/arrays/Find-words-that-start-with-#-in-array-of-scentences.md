@@ -1,5 +1,5 @@
 ---
-title: Find words that start with '#' in an array of sentences 
+title: Find '#words' in array[sentences] 
 parent: Array
 nav_order: 2
 ---

@@ -1,5 +1,5 @@
 ---
-title: Employee Sorting Problems (Java 8+)
+title: Sorting Problems
 parent: Java8+ Real world Examples(Employee)
 nav_order: 1
 ---

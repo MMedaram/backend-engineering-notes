@@ -1,5 +1,5 @@
 ---
-title: Java Streams (Java 8+)
+title: Streams
 parent: Java-8
 nav_order: 2
 ---
