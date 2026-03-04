@@ -1,5 +1,5 @@
 ---
-title: Java8+ Real world Examples(Employee)  
+title: Java8+ Employee 
 parent: Programs – Java
 nav_order: 3
 ---

@@ -1,6 +1,6 @@
 ---
 title: Grouping Problems
-parent: Java8+ Real world Examples(Employee)
+parent: Java8+ Employee
 nav_order: 3
 ---
 

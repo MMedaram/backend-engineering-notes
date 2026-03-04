@@ -1,6 +1,6 @@
 ---
 title: Nth Highest Salary
-parent: Java8+ Real world Examples(Employee)
+parent: Java8+ Employee
 nav_order: 2
 ---
 

@@ -9,109 +9,176 @@ nav_order: 8
 
 ---
 
-#  Daily Developer Commands (Must Master)
+### git init
 
-These commands are used almost every day in real-world projects.
+Initializes a new Git repository in the current folder.
 
-## 1. Repository Setup
-- git init
-- git clone
-- git config
-- .gitignore basics
+### git clone <repo-url>
+Clones a remote Git repository into your local machine.
 
-## 2. Checking & Inspecting Changes
-- git status
-- git log
-- git diff
-- git show
+### git status
+Shows the state of the working directory and staging area.
 
-## 3. Staging & Committing
-- git add
-- git add -p (partial staging)
-- git commit
-- git commit --amend
+### git add <file>
+Stages a file for commit.
 
-## 4. Branching Basics
-- git branch
-- git switch (or checkout)
-- git merge
-- git log --graph --oneline --all
+### git add .
+Stages all changes (new, modified, deleted files).
 
-## 5. Remote Basics
-- git remote
-- git fetch
-- git pull
-- git push
 
-## 6. Temporary Work
-- git stash
-- git stash pop
-- git stash apply
+### git commit -m "message"
+Commits the staged changes with a message.
+
+### git commit -am "message"
+Adds and commits tracked files in one command.
+
+### git log
+Shows the commit history.
+
+### git diff
+Shows changes between the working directory and the last commit.
+
+
+### git diff --staged
+Shows changes between staged files and last commit.
 
 ---
 
-# Professional Team Usage
+## BRANCHING & MERGING
 
-Important for real enterprise environments and clean collaboration.
+### git branch
+Lists all branches.
 
-## 1. History Management
-- git rebase
-- git rebase -i (interactive)
-- git squash (via rebase)
-- fixup commits
+### git branch <branch-name>
+Creates a new branch.
 
-## 2. Selective Commit Operations
-- git cherry-pick
-- cherry-pick ranges
+### git checkout <branch-name>
+Switches to a specific branch.
 
-## 3. Undo & Recovery
-- git reset (soft, mixed, hard)
-- git revert
-- git restore
-- git clean
-- git reflog
+### git switch <branch-name>
+Newer way to switch branches.
 
-## 4. Remote Collaboration Advanced
-- upstream tracking branches
-- git push --force-with-lease
-- resolving diverged branches
-- handling rejected pushes
+### git switch -c <new-branch>
+Creates and switches to a new branch.
 
-## 5. Release Handling
-- git tag
-- annotated vs lightweight tags
-- pushing tags
+### git merge <branch>
+Merges another branch into the current branch.
+
+### git branch -d <branch>
+Deletes a local branch.
+
+### git branch -D <branch>
+Force deletes a local branch.
+
+### git merge --abort
+Cancels a merge if there are conflicts.
+
+### git stash
+Temporarily stores changes in working directory.
 
 ---
 
-# Advanced & Debugging Mastery
+## REMOTE REPOSITORY MANAGEMENT
 
-Power-user and troubleshooting tools.
+### git remote -v
+Shows URLs of remotes (like origin).
 
-## 1. Investigation & Debugging
-- git blame
-- git bisect
-- advanced log filtering
-- searching commit history
+### git remote add origin <url>
+Links local repo to a remote.
 
-## 2. Patch & Backport Workflow
-- git format-patch
-- git apply
+### git push -u origin main
+Pushes changes and sets the upstream.
 
-## 3. Large Repository Handling
-- shallow clone
-- sparse checkout
-- Git LFS (concept)
+### git push
+Pushes commits to the remote branch.
 
-## 4. Internals Understanding
-- Working tree
-- Staging area (Index)
-- HEAD
-- Commit objects (blob, tree)
-- Detached HEAD state
+### git pull
+Fetches and merges remote changes.
 
-## 5. Automation
-- Git hooks
-- pre-commit hooks
-- commit message validation
+### git fetch
+Downloads updates from remote but doesn't merge.
 
+### git push origin <branch-name>
+Pushes a specific branch to remote.
+
+### git push --force
+Forces a push (used carefully!).
+
+### git push origin --delete <branch>
+Deletes a remote branch.
+
+### git pull origin <branch>
+Pulls changes from specific remote branch.
+
+
+---
+
+## RESET, REVERT, CLEANUP
+
+### git reset <file>
+Unstages a file.
+
+### git reset --hard
+Resets working directory and index to last commit.
+
+### git reset --soft HEAD~1
+Moves HEAD back but keeps changes staged.
+
+### git revert <commit>
+Creates a new commit that undoes a previous one.
+
+### git clean -f
+Deletes untracked files.
+
+### git clean -fd
+Deletes untracked files and directories.
+
+---
+
+## TAGS, LOGS, HISTORY
+
+### git tag
+Lists all tags.
+
+### git tag <tag-name>
+Creates a tag.
+
+### git tag -a v1.0 -m "Version 1"
+Creates an annotated tag.
+
+### git show <tag>
+Shows tag details and associated commit.
+
+### git log --oneline
+Shows simplified commit history.
+
+### git log --graph
+Displays commits as a graph.
+
+---
+
+## TOOLS & CONFIGURATION
+
+### git config --global user.name "Your Name"
+Sets global username.
+
+### git config --global user.email "you@example.com"
+Sets global email.
+
+### git config --list
+Lists current configurations.
+
+### git blame <file>
+Shows who changed which line of a file.
+
+### git cherry-pick <commit>
+Applies a commit from another branch.
+
+### git rebase <branch>
+Reapplies commits on top of another base tip.
+
+### git reflog
+Shows the history of branch movements.
+
+### git archive
+Creates a zip/tar archive of the repository content.
