@@ -204,6 +204,7 @@ public class User {
 ---
 
 #### Fetch Types
+
 | Relationship | Default Fetch |
 |--------------|---------------|
 | OneToOne	    | EAGER         |

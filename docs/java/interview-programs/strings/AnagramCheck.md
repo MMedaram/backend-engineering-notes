@@ -79,6 +79,19 @@ public class GroupAnagrams {
         return new ArrayList<>(map.values()); // [[eat, tea, ate], [bat], [tan, nat]]
     }
 
+    //using Java8 Streams
+    public static List<List<String>> groupAnagramsUsingStreams(String[] strings) {
+        Collection<List<String>> values = Arrays.stream(strings).collect(Collectors.groupingBy(
+                s -> {
+                    char[] chars = s.toCharArray();
+                    Arrays.sort(chars);
+                    return new String(chars);
+                }
+        )).values();
+
+        return new ArrayList<>(values);
+    }
+
     public static void main(String[] args) {
         String[] strs = {"eat","tea","tan","ate","nat","bat"};
         System.out.println(groupAnagrams(strs));
