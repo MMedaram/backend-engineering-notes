@@ -4,166 +4,368 @@ parent: Spring Data JPA
 nav_order: 8
 ---
 
-# N+1 Query Problem in JPA
+# JPA N+1 Problem 
 
-The **N+1 query problem** occurs when an application executes:
-- **1 query** to fetch a list of entities
-- **N additional queries** to fetch related entities for each record
+## 1. What is the N+1 Problem
 
-This leads to serious **performance issues** in real-world applications.
+
+The **N+1 Query Problem** occurs when:
+
+1 query is executed to fetch a list of entities(parent), and  
+then **N additional queries** are executed to fetch related entities(child).
+
+Total queries executed:
+
+> 1+ N
+
+
+This leads to **serious performance issues**, especially when the dataset is large.
+
+Example:
+
+- 1000 records
+
+Queries executed:
+
+- 1 + 1000 = 1001 queries
+
 
 ---
 
-## What Does N+1 Mean
+## 2. Real World Example
 
-**👉 Imagine you have two entities:** 
+Assume a banking system.
 
-- Department → OneToMany → Employee.
-- You want to fetch the Department with all Employees.
+A **Customer can have multiple Accounts**.
 
-```java 
+### Tables
 
-public interface DepartmentRepository extends JpaRepository<Department, Long> {
+#### Customer
 
-    List<Department> findAll();
+| id | name |
+|---|---|
+| 1 | Mohan |
+| 2 | Ramesh |
+
+#### Account
+
+| id | account_number | customer_id |
+|---|---|---|
+| 101 | ACC1001 | 1 |
+| 102 | ACC1002 | 1 |
+| 103 | ACC2001 | 2 |
+
+Important: Foreign key exists in Account table
+
+
+---
+
+## 3. Unidirectional Entity Mapping
+
+In unidirectional mapping we **only keep the relation on the many side**.
+
+Meaning:
+
+> Account → Customer
+
+but not
+
+> Customer → Accounts
+
+
+---
+
+## Customer Entity
+
+```java
+@Entity
+public class Customer {
+
+    @Id
+    private Long id;
+
+    private String name;
+
 }
 ```
 
-#### Generated SQL:
+## Account Entity
 
-```sql 
-SELECT * FROM department;
-SELECT * FROM employee WHERE department_id = 1;
 
+```java
+@Entity
+public class Account {
+
+    @Id
+    private Long id;
+
+    private String accountNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+}
 ```
 
-Total Queries Executed = 1 (for Department) + N (for each Employee List)
-
- ✅ This is called the N+1 Problem.
-
-- 🚨 1 query to fetch all departments.
-- 🚨 5 additional queries to fetch employees for each department.
+Important:      
+Foreign key: account.customer_id
 
 ---
 
-### Why N+1 Happens
+## 4. Repository
 
-N+1 happens because of:
+```java
+public interface AccountRepository extends JpaRepository<Account, Long> {
 
-- FetchType.LAZY
-- Accessing related entities inside a loop
-- Default repository methods (findAll)
-- Persistence context fetching data on demand
+}
+```
 
-#### Important:
 
-N+1 is not a bug — it is how JPA works by default.
+## 5. Service Code
 
----
+Suppose we fetch all accounts.
 
-### Why N+1 Is Dangerous
+```
+List<Account> accounts = accountRepository.findAll();
 
-- Too many database calls
-- High DB load
-- Slow API responses
-- Poor scalability
+for(Account account : accounts) {
 
-#### Example:
+    System.out.println(account.getAccountNumber());
 
-- 10 rows → fine
-- 10,000 rows → disaster
+    System.out.println(account.getCustomer().getName());
+}
+```
 
----
+## 6. What Queries Actually Run
 
-### How to Detect N+1
+Query 1 (Fetch accounts)
 
-**Enable SQL logs**
+> SELECT * FROM account;
+
+Example result:
+
+```
+Account1
+Account2
+Account3
+```
+
+Assume there are 3 accounts.
+
+#### Lazy loading triggers additional queries
+
+When this line executes:
+
+> account.getCustomer().getName();
+
+Hibernate runs:
+
+```sql
+SELECT * FROM customer WHERE id = 1;
+SELECT * FROM customer WHERE id = 1;
+SELECT * FROM customer WHERE id = 2;
+```
+
+## Total Queries
+
+```
+1 query for accounts
++ 3 queries for customers
+-----------------------
+4 queries
+```
+
+Formula 
+>  1 + N
+
+## 7. Why N+1 Happens
+
+N+1 occurs when these two conditions happen together:
+
+1️⃣ Fetch a list of entities       
+2️⃣ Access a LAZY relationship inside a loop
+
+**Pattern:**       
+
+```
+List<Entity> list = repository.findAll();
+
+for(Entity e : list){
+    e.getRelation();   // triggers additional queries
+}
+```
+
+## 8. How to Detect N+1 Problem
+
+Enable SQL logging.
+
+application.properties
 
 ```properties
 spring.jpa.show-sql=true
-hibernate.format_sql=true
+spring.jpa.properties.hibernate.format_sql=true
 ```
 
-**Red flag**
+If you see repeated queries like:
 
-- Same query executed repeatedly
-- Only ID value changes
+```
+select * from customer where id=?
+select * from customer where id=?
+select * from customer where id=?
+```
+
+You likely have an N+1 problem.
 
 ---
 
-## Correct Ways to Solve N+1
+## 9. Solution 1 — Fetch Join 
+
+Use JPQL Fetch Join.
+
+**Repository**           
+
+```sql
+@Query("""
+SELECT a FROM Account a
+JOIN FETCH a.customer
+""")
+List<Account> findAccountsWithCustomer();
+```
+
+**Generated SQL**     
+
+```sql
+SELECT a.*, c.* FROM account a JOIN customer c ON a.customer_id = c.id;
+```
+
+**Queries Executed**
+
+> 1 query only
+
+Now both Account and Customer load in one query.
 
 ---
 
+## 10. Solution 2 — EntityGraph
 
-### 1️⃣ Join Fetch
+Spring Data JPA provides **EntityGraph.**
+
+**Repository**     
 
 ```java
-@Query("SELECT o FROM Order o JOIN FETCH o.customer ") 
-List<Order> findAllWithCustomer();
+@EntityGraph(attributePaths = {"customer"})
+List<Account> findAll();
 ```
 
-✔ One query
+This forces Hibernate to fetch the relationship together.
 
-✔ Orders + customers loaded together
+Result:
 
-### 2️⃣ EntityGraph (CLEAN & SAFE)
-
-```java 
-@EntityGraph(attributePaths = "customer")
-List<Order> findAll();
-```
-
-✔ Declarative
-
-✔ No JPQL change
-
-✔ Preferred in many teams
-
-EntityGraph tells tp JPA :
-
-- 💡 "Hey JPA, when fetching orders → automatically fetch customers."
-- 💡 Do NOT do lazy loading → Combine the query.
-
-### 3️⃣ DTO Projection (BEST FOR APIs)
-
-```java 
-@Query("""
-SELECT new com.bank.dto.OrderDTO(o.id, c.name)
-FROM Order o JOIN o.customer c
-""")
-List<OrderDTO> findOrderSummaries();
-```
-
-✔ No entities
-
-✔ No lazy loading
-
-✔ Best performance
-
-### 4️⃣ Batch Fetching (PARTIAL FIX)
-
-```properties
-hibernate.default_batch_fetch_size=20
-```
-
-✔ Reduces queries
-
-❌ Does not eliminate N+1
+> Single optimized query
 
 ---
 
-### Summary
+## 11. Solution 3 — DTO Projection (Best for APIs)
 
-- N+1 = 1 query + N queries
-- Happens due to lazy loading
-- Join Fetch is most common fix
-- EntityGraph is clean solution
-- DTO projection is best for APIs
-- EAGER fetch is not a solution
+Instead of loading entities, fetch only required data.
 
->Final Takeaway
->
->N+1 problem is not a framework issue —
->it is a data fetching design issue.
+### DTO
+
+```java
+public class AccountDTO {
+
+    private String accountNumber;
+    private String customerName;
+
+}
+```
+
+### Repository
+
+```java
+@Query("""
+SELECT new com.example.AccountDTO(
+a.accountNumber,
+c.name
+)
+FROM Account a
+JOIN a.customer c
+""")
+List<AccountDTO> fetchAccountDetails();
+```
+
+## Generated SQL
+
+```sql
+SELECT a.account_number, c.name
+FROM account a
+JOIN customer c
+ON a.customer_id = c.id;
+```
+
+### Benefits:
+
+✔ Single query         
+✔ Less memory usage         
+✔ Faster API response         
+
+## 12. Solution 4 — Batch Fetching
+
+Hibernate can fetch related entities in batches.
+
+application.properties
+
+```properties
+spring.jpa.properties.hibernate.default_batch_fetch_size=10
+```
+
+Instead of:
+
+```
+SELECT * FROM customer WHERE id=1
+SELECT * FROM customer WHERE id=2
+SELECT * FROM customer WHERE id=3
+```
+
+Hibernate runs:
+
+> SELECT * FROM customer WHERE id IN (1,2,3)
+
+---
+
+## 13. Solution Comparison
+
+| Solution       | Performance | Use Case                 |
+| -------------- | ----------- | ------------------------ |
+| Fetch Join     | Excellent   | Most common fix          |
+| EntityGraph    | Excellent   | Cleaner Spring approach  |
+| DTO Projection | Excellent   | APIs / read-only queries |
+| Batch Fetching | Good        | Large collections        |
+
+
+---
+
+## 14. Important Best Practice
+
+Many experienced teams follow this rule:
+
+```
+1. Keep entity relationships LAZY
+2. Never rely on default fetching
+3. Control fetching at query level
+```
+
+### Example mapping:
+
+```
+@ManyToOne(fetch = FetchType.LAZY)
+private Customer customer;
+```
+
+Then explicitly fetch using:
+
+- JOIN FETCH
+- DTO queries
+- EntityGraph
 
