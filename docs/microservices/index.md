@@ -1,5 +1,5 @@
 ---
-title: Microservices Architecture
+title: Microservices
 parent: Backend Engineering Notes
 nav_order: 3
 ---

@@ -1,6 +1,6 @@
 ---
-title: Microservices Architecture – Components List
-parent: Microservices Architecture
+title: Microservices Components List
+parent: Microservices
 nav_order: 1
 ---
 

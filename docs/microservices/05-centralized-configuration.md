@@ -1,6 +1,6 @@
 ---
 title: Centralized Configuration
-parent: Microservices Architecture
+parent: Microservices
 nav_order: 5
 ---
 

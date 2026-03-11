@@ -1,6 +1,6 @@
 ---
-title: Scalability – Vertical vs Horizontal
-parent: Microservices Architecture
+title: Scalability
+parent: Microservices
 nav_order: 2
 ---
 

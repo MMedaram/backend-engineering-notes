@@ -1,6 +1,6 @@
 ---
-title: Service Registry & Service Discovery (Eureka)
-parent: Microservices Architecture
+title: Service Registry & Discovery
+parent: Microservices
 nav_order: 3
 ---
 

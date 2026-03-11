@@ -1,6 +1,6 @@
 ---
 title: API Gateway
-parent: Microservices Architecture
+parent: Microservices
 nav_order: 4
 ---
 
