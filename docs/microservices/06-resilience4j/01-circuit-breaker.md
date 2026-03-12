@@ -1,7 +1,7 @@
 ---
 title: Circuit Breaker
 parent: Resilience4j
-nav_order: 6
+nav_order: 1
 ---
 
 # Circuit Breaker (Resilience4j)

@@ -1,7 +1,7 @@
 ---
 title: Retry
 parent: Resilience4j
-nav_order: 6
+nav_order: 2
 ---
 
 # Retry Pattern (Spring Boot + Resilience4j)
