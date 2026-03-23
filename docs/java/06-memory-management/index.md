@@ -1,5 +1,5 @@
 ---
 title: Memory-Management
 parent: Java
-nav_order: 1
+nav_order: 6
 ---
