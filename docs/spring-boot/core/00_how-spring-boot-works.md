@@ -1,7 +1,7 @@
 ---
 title: How Spring Boot Works (End-to-End)
 parent: Spring Core
-nav_order: 1
+nav_order: 0
 ---
 
 # How Spring Boot Works (End-to-End)

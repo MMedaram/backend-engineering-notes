@@ -13,6 +13,8 @@ Centralized configuration solves this problem by storing
 all configuration values in a **central location** instead of
 scattering them across multiple services.
 
+![img.png](spring_cloud_config_server.png)
+
 ---
 
 ## Why Centralized Configuration Is Needed

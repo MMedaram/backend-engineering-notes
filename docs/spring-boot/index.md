@@ -25,6 +25,8 @@ Spring Boot solves these problems by:
 - Providing sensible defaults
 - Allowing applications to run as standalone services
 
+![img.png](whySpringboot.png)
+
 This makes Spring Boot especially suitable for **microservices and modern backend systems**.
 
 ---

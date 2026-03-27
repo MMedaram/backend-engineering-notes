@@ -1,7 +1,7 @@
 ---
 title: How @Transactional works internally
 parent: Transactions
-nav_order: 5
+nav_order: 1
 ---
 
 # How `@Transactional` works internally
