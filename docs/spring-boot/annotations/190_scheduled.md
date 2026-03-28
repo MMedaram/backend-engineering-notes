@@ -1,5 +1,5 @@
 ---
-title: @Scheduled 
+title: Scheduled 
 parent: Annotations
 nav_order: 190
 ---
