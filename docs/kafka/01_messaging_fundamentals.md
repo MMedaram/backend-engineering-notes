@@ -1,7 +1,7 @@
 ---
 title: Messaging & Event‑Driven Fundamentals
 parent: Kafka
-nav_order: 1
+nav_order: 0
 ---
 
 # Messaging & Event‑Driven Fundamentals
