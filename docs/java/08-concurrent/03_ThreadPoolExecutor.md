@@ -30,6 +30,13 @@ These settings define how threads are `created`, `reused`, and `terminated`. The
 
 The executor uses a `BlockingQueue` to hold tasks awaiting execution. Depending on the queue type—such as `LinkedBlockingQueue`, `SynchronousQueue`, or `ArrayBlockingQueue` —it balances throughput and resource use. When the pool and queue are full, it employs a RejectedExecutionHandler policy. Built-in options include:
 
+When pool is full:
+
+
+```
+new ThreadPoolExecutor.AbortPolicy()
+```
+
 - **AbortPolicy**: throws an exception.
 - **CallerRunsPolicy**: executes the task in the calling thread.
 - **DiscardPolicy**: silently discards the task.
@@ -48,5 +55,47 @@ It also exposes metrics like active thread count, pool size, and completed task 
 The design supports dynamic tuning, making it foundational for scalable, responsive Java systems, including frameworks such as Spring’s ThreadPoolTaskExecutor which builds upon it for managed environments. 
 
 
+
+----
+
+```java
+ThreadPoolExecutor executor = new ThreadPoolExecutor(
+    2, 4, 
+    60, TimeUnit.SECONDS,
+    new LinkedBlockingQueue<>()
+);
+```
+
+
+| Parameter       | Meaning             |
+| --------------- | ------------------- |
+| corePoolSize    | Minimum threads     |
+| maximumPoolSize | Max threads         |
+| keepAliveTime   | Idle thread timeout |
+| workQueue       | Task queue          |
+
+
+## Flow of Execution
+
+```
+Task arrives
+   ↓
+If threads < core → create thread
+   ↓
+Else → queue task
+   ↓
+If queue full → create up to max threads
+   ↓
+Else → reject task
+```
+
+
+### Blocking Queues
+
+Common queues:
+
+- LinkedBlockingQueue (unbounded)
+- ArrayBlockingQueue (fixed size)
+- SynchronousQueue (no storage)
 
 
