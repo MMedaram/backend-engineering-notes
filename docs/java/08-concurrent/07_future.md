@@ -186,8 +186,6 @@ try {
 ---
 
 
----
-
 ## 6. Limitations of Future
 
 - Blocking calls (get)
