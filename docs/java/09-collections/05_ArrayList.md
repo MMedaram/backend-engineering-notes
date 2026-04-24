@@ -1,5 +1,5 @@
 ---
-title: ArrayList
+title: ArrayList (C)
 parent: Collection Framework
 nav_order: 5
 ---

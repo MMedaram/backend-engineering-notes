@@ -1,5 +1,5 @@
 ---
-title: Collection Interface
+title: Collection (I)
 parent: Collection Framework
 nav_order: 2
 ---

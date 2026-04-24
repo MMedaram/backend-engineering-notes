@@ -1,5 +1,5 @@
 ---
-title: LinkedList
+title: LinkedList(C)
 parent: Collection Framework
 nav_order: 6
 ---
@@ -98,7 +98,6 @@ Doubly linked list → each element connected to both sides
 - addFirst()
 - removeLast()
 
-### Slow Random Access
 - get(index) → costly
 
 ### Memory Overhead
