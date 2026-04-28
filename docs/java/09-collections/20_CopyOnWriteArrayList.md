@@ -41,7 +41,7 @@ nav_order: 20
 
 ## Internal Working
 
-```text id="cowal_struct"
+```
 Original Array → Copy → Modify → Replace reference
 ```
 
@@ -180,3 +180,4 @@ Examples:
 | Writes      | Fast      | Slow                 |
 | Reads       | Fast      | Very fast            |
 
+git
