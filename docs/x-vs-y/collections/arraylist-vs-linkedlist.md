@@ -13,16 +13,14 @@ nav_order: 2
 
 ## Core Difference
 
-| Point | ArrayList | LinkedList |
-|-----|-----------|------------|
-| Internal structure | Dynamic array | Doubly linked list |
-| Access (get/set) | Fast – O(1) | Slow – O(n) |
-| Insertion / deletion (middle) | Slow – O(n) | Fast – O(1)\* |
-| Memory usage | Less | More (extra pointers) |
-| Cache friendliness | High | Low |
-| Implements | List | List, Deque |
-
-
+| Feature | ArrayList | LinkedList |
+|--------|----------|------------|
+| **Structure** | Index-based data structure where each element has an index | Node-based structure; each node contains previous reference, value, and next reference |
+| **Insertion & Removal** | Slow in the middle due to shifting elements | Fast from any position; only references are updated |
+| **Time Complexity (Insert/Delete)** | O(n) | O(1) |
+| **Element Retrieval** | Fast due to direct index access | Slow; requires traversal |
+| **Time Complexity (Access)** | O(1) | O(n) |
+| **Access Type** | Supports random access | Does not support random access |
 ---
 
 ## ArrayList
