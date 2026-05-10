@@ -1,7 +1,7 @@
 ---
 title: Creational Patterns
 parent: Design Patterns
-nav_order: 1
+nav_order: 2
 ---
 
 # Creational Patterns

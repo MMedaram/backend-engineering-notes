@@ -1,7 +1,7 @@
 ---
 title: SOLID Principles
-parent: Java
-nav_order: 13
+parent: Design Patterns
+nav_order: 1
 ---
 
 # SOLID Principles
@@ -38,7 +38,7 @@ public class UserService {
     }
 
     public void generateReport(User user) {
-        // generate report
+        // generate reports
     }
 }
 
@@ -68,7 +68,7 @@ public class EmailService {
 
 public class ReportService {
     public void generateReport(User user) {
-        // generate report
+        // generate reports
     }
 }
 
@@ -243,7 +243,7 @@ public class FixedDepositAccount implements AccountOperations {
 ### ✅ Correct (Segregated Interfaces)
 
 ```java
-public interface Depositable {
+public interface Deposit {
     void deposit();
 }
 
@@ -255,7 +255,7 @@ public interface InterestBearing {
     void calculateInterest();
 }
 
-public class FixedDepositAccount implements Depositable, InterestBearing {
+public class FixedDepositAccount implements Deposit, InterestBearing {
     // only required methods
 }
 
@@ -286,7 +286,7 @@ public class AccountService {
 ```
 
 #### Problems
-- Hard to switch notification type
+- Hard to switch notification's type
 - Difficult to test
 
 ### ✅ Correct (Using Abstraction)
