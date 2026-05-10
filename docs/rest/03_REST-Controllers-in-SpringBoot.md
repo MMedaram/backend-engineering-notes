@@ -159,7 +159,7 @@ public ResponseEntity<User> createUser(@RequestBody UserRequest request) {
 * Call service layer
 * Return response
 
-### ❌ Should NOT Do
+###  Should NOT Do
 
 * Business logic
 * Database access
@@ -169,7 +169,7 @@ public ResponseEntity<User> createUser(@RequestBody UserRequest request) {
 
 ## 7. Thin Controller Pattern
 
-### ❌ Bad (Fat Controller)
+###  Bad (Fat Controller)
 
 ```java
 @PostMapping
@@ -256,7 +256,7 @@ DELETE /users/{id}
 
 Controllers should NOT handle exceptions directly.
 
-❌ Avoid:
+ Avoid:
 
 ```
 try {
@@ -288,38 +288,17 @@ You can control:
 
 ## 12. Common Mistakes
 
-❌ Putting business logic in controllers
-❌ Returning entities directly
-❌ Not using DTOs
-❌ Not using ResponseEntity when needed
-❌ Handling exceptions inside controllers
-❌ Overloading controllers with too many responsibilities
+*  Putting business logic in controllers
+*  Returning entities directly
+*  Not using DTOs
+*  Not using ResponseEntity when needed
+*  Handling exceptions inside controllers
+*  Overloading controllers with too many responsibilities
 
 ---
 
-## 13. Advanced Tips
 
-### 13.1 Use Interfaces for Controllers (optional)
-
-* Helps with testing & contracts
-
----
-
-### 13.2 Use Base Controller Patterns (carefully)
-
-* For common responses / utilities
-
----
-
-### 13.3 Logging
-
-```
-log.info("Fetching user with id {}", id);
-```
-
----
-
-## 14. Real-World Structure
+## 13. Real-World Structure
 
 ```
 controller/
@@ -337,7 +316,7 @@ repository/
 
 ---
 
-## 15. Summary
+## 14. Summary
 
 * Controllers = HTTP layer only
 * Keep them thin
@@ -347,9 +326,9 @@ repository/
 
 ---
 
-## 16. Key Takeaway
+## 15. Key Takeaway
 
-👉 A good controller is **boring and simple**
-👉 Complexity belongs in the service layer
+* 👉 A good controller is **boring and simple**
+* 👉 Complexity belongs in the service layer
 
 ---
