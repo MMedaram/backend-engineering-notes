@@ -184,7 +184,7 @@ Validates protection against:
 
 - SQL Injection
 - XSS
-- CSRF
+- CSRF (Cross-Site Request Forgery)
 - Broken access control
 - Authentication bypass
 - Data leakage

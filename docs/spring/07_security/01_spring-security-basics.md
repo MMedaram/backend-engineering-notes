@@ -161,7 +161,7 @@ Passwords or tokens get exposed in logs, URLs, or plain HTTP.
 
 An attacker reuses an old valid request or token.
 
-## CSRF
+## CSRF (Cross-Site Request Forgery)
 
 A browser sends a malicious request on behalf of a logged-in user.
 
@@ -334,9 +334,9 @@ Think of backend security like a building:
 * SecurityContext = the visitor record for the current person
 * roles/permissions = which floors or rooms they can enter
 
-Without guards, anyone walks in.
-Without ID checks, anyone claims to be someone else.
-Without room rules, even authenticated visitors roam anywhere.
+Without guards, anyone walks in.    
+Without ID checks, anyone claims to be someone else.      
+Without room rules, even authenticated visitors roam anywhere.         
 
 ---
 
