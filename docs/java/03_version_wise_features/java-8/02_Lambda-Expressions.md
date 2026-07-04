@@ -4,160 +4,213 @@ parent: Java-8
 nav_order: 2
 ---
 
-# Lambda Expressions in Java 
+# Lambda Expressions
 
-## 1. Introduction
+A lambda expression is a short way to pass behavior as data.
 
-A **Lambda Expression** is a concise way to represent an **anonymous function** (a function without a name) that can be passed as an argument.
+Simple meaning:
 
-Introduced in **Java 8** to support **functional programming**.
+> A lambda is an unnamed method that can be passed to another method.
 
 ---
 
-## 2. Basic Syntax
+## Why Were Lambdas Introduced?
 
-
-> (parameters) -> expression
-
-or
-
-> (parameters) -> { statements }
-
-Examples:
-
-> (int a, int b) -> a + b
-
-> () -> System.out.println("Hello")
-
-> x -> x * x
-
-----
-
-## 3. Functional Interface
-
-A Functional Interface is an interface with only one abstract method.
-
-Example:
+Before Java 8, we used anonymous classes for small pieces of behavior.
 
 ```java
-@FunctionalInterface
-interface MyFunc {
-int add(int a, int b);
-}
-```
-
-Lambda works only with functional interfaces.
-
-## 4. Simple Example
-
-### Without Lambda:
-
-```java
-Runnable r = new Runnable() {
-public void run() {
-System.out.println("Hello");
-}
+Runnable task = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("Hello");
+    }
 };
 ```
 
-### With Lambda:
+Java 8 lambda:
 
 ```java
-Runnable r = () -> System.out.println("Hello");
+Runnable task = () -> System.out.println("Hello");
 ```
 
-----
+Benefits:
 
-## 5. Common Functional Interfaces
-
-| Interface     | Method    | Description            |
-| ------------- | --------- | ---------------------- |
-| Runnable      | run()     | No input, no output    |
-| Comparator    | compare() | Compare objects        |
-| Callable      | call()    | Returns result         |
-| Predicate<T>  | test()    | Returns boolean        |
-| Function<T,R> | apply()   | Transform input        |
-| Consumer<T>   | accept()  | Takes input, no return |
-| Supplier<T>   | get()     | Returns value          |
-
+- Less boilerplate.
+- Easier collection processing.
+- Works with Streams API.
+- Makes behavior easier to pass around.
 
 ---
 
-## 6. Variable Capture
+## Basic Syntax
 
-Lambdas can access variables from outer scope.
+No input:
 
-> int a = 10;
-> Runnable r = () -> System.out.println(a);
-
-Rule:
-- Variables must be final or effectively final
-
-------
-
-## 7. Lambda vs Anonymous Class
-
-| Feature        | Lambda                | Anonymous Class       |
-| -------------- | --------------------- | --------------------- |
-| Syntax         | Short                 | Verbose               |
-| `this` keyword | Refers to outer class | Refers to inner class |
-| Performance    | Better (optimized)    | Slightly heavier      |
-| Compilation    | invokedynamic         | Separate class file   |
-
-
-## 8. Internal Working
-
-- Uses invokedynamic
-- JVM creates function objects dynamically
-- No separate .class file like anonymous class
-
-## 9. Lambda with Collections (Streams)
-    
 ```
-list.stream()
-    .filter(x -> x > 10)
-    .forEach(x -> System.out.println(x));
+() -> System.out.println("Hello")
 ```
 
-## 10. Method References (Shortcut)
+One input:
 
-Instead of:
+```
+name -> name.toUpperCase()
+```
 
-> x -> System.out.println(x)
+Multiple inputs:
 
-Use:
+```
+(a, b) -> a + b
+```
 
-> System.out::println
+Block body:
 
-## 11. Types of Method References
+```
+(a, b) -> {
+    int sum = a + b;
+    return sum;
+}
+```
 
-| Type        | Example             |
-| ----------- | ------------------- |
-| Static      | Class::staticMethod |
-| Instance    | obj::method         |
-| Constructor | Class::new          |
+---
 
+## Lambda Needs Functional Interface
 
-## 12. Benefits of Lambda
-    
-- Reduces boilerplate code
-- Improves readability
-- Enables functional programming
-- Works well with Streams API
-- Easier parallel processing
+A lambda works only where Java expects a functional interface.
 
-## 13. Performance Insights
-   
-- Lambdas are not always heap objects
-- JVM uses Escape Analysis:
-    - May eliminate object creation
-    - May inline code
-- Non-escaping lambdas → very efficient
+Functional interface means:
 
-## 15. Important Rules
-    
-- Can only be used with functional interfaces
-- Cannot modify captured variables
-- Supports type inference
-- Parentheses optional for single parameter
+> Interface with exactly one abstract method.
 
+```java
+@FunctionalInterface
+interface Calculator {
+    int add(int a, int b);
+}
+```
+
+Usage:
+
+```java
+Calculator calculator = (a, b) -> a + b;
+
+int result = calculator.add(10, 20);
+```
+
+---
+
+## Common Functional Interfaces
+
+| Interface        | Method   | Meaning                                              |
+|------------------|----------|------------------------------------------------------|
+| `Predicate<T>`   | `test`   | Takes value, returns boolean                         |
+| `Function<T, R>` | `apply`  | Converts one value to another                        |
+| `Consumer<T>`    | `accept` | Takes value, returns nothing                         |
+| `Supplier<T>`    | `get`    | Takes nothing, returns value                         |
+| `Runnable`       | `run`    | Takes nothing, returns nothing                       |
+| `Callable<T>`    | `call`   | Takes nothing, returns value and can throw exception |
+
+---
+
+## Variable Capture
+
+Lambdas can read local variables from outside.
+
+```java
+int limit = 10;
+
+Predicate<Integer> isBig = value -> value > limit;
+```
+
+But captured local variables must be final or effectively final.
+
+This does not work:
+
+```
+int limit = 10;
+
+Predicate<Integer> isBig = value -> value > limit;
+
+limit = 20; // compile-time error
+```
+
+---
+
+## this Keyword Difference
+
+In lambda, `this` refers to the outer class.
+
+In anonymous class, `this` refers to the anonymous class object.
+
+This matters mostly in advanced or framework code.
+
+---
+
+## Lambda With Streams
+
+```java
+List<String> result = names.stream()
+    .filter(name -> name.startsWith("A"))
+    .map(name -> name.toUpperCase())
+    .collect(Collectors.toList());
+```
+
+Cleaner with method reference:
+
+```java
+List<String> result = names.stream()
+    .filter(name -> name.startsWith("A"))
+    .map(String::toUpperCase)
+    .collect(Collectors.toList());
+```
+
+---
+
+## Edge Cases
+
+### Null Functional Interface
+
+```
+Predicate<String> predicate = null;
+predicate.test("A"); // NullPointerException
+```
+
+### Exception In Lambda
+
+```
+names.forEach(name -> {
+    if (name == null) {
+        throw new IllegalArgumentException("name is null");
+    }
+});
+```
+
+The exception is thrown when the lambda runs, not when it is created.
+
+### Checked Exceptions
+
+Many functional interfaces do not allow checked exceptions.
+
+This is awkward:
+
+```
+names.forEach(name -> Files.readAllLines(Paths.get(name))); // compile-time error
+```
+
+Handle exception inside lambda or move logic to a method that handles it.
+
+---
+
+## Best Practices
+
+- Keep lambdas small.
+- Use clear variable names.
+- Use method references when they improve readability.
+- Avoid complex business logic inside lambdas.
+- Avoid side effects in stream lambdas.
+- Remember captured local variables must be effectively final.
+
+---
+
+## Quick Summary
+
+Lambda expressions reduce boilerplate and make Java more functional. They work with functional interfaces and are heavily used with Streams, Collections, and CompletableFuture.

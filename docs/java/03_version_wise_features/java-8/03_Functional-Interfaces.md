@@ -4,247 +4,217 @@ parent: Java-8
 nav_order: 3
 ---
 
-# Functional Interfaces in Java
+# Functional Interfaces
 
-## 1. What is a Functional Interface?
+A functional interface is an interface with exactly one abstract method.
 
-A **Functional Interface** is an interface that contains:
+Simple meaning:
 
-> ✅ Exactly **one abstract method**
+> It is the target type for a lambda expression.
 
-It can have:
-- Multiple **default methods**
-- Multiple **static methods**
+---
 
-### Example:
+## Why Were Functional Interfaces Introduced?
+
+Java 8 added lambdas.
+
+But Java is strongly typed, so every lambda needs a type.
+
+That type is usually a functional interface.
+
+```java
+Predicate<String> isEmpty = value -> value.isEmpty();
+```
+
+Here the lambda becomes an implementation of `Predicate<String>`.
+
+---
+
+## Custom Functional Interface
+
 ```java
 @FunctionalInterface
-interface MyFunc {
+interface GreetingService {
+    void greet(String name);
+}
+```
+
+Usage:
+
+```
+GreetingService service = name -> System.out.println("Hello " + name);
+service.greet("Mohan");
+```
+
+---
+
+## @FunctionalInterface
+
+The annotation is optional but recommended.
+
+It tells the compiler:
+
+> This interface must remain functional.
+
+This fails:
+
+```java
+@FunctionalInterface
+interface Calculator {
     int add(int a, int b);
+    int subtract(int a, int b); // compile-time error
 }
 ```
 
-## 2. Why Functional Interfaces?
+---
 
-They enable:
+## Can It Have Default And Static Methods?
 
-- Lambda expressions
-- Method references
-- Functional programming in Java
-
-## 3. Before Java 8 vs After Java 8
-
-### Before Java 8
-
-- No lambda expressions
-- Used anonymous classes
-- Interfaces were mainly:
-  - Marker interfaces
-  - Callback-style interfaces
-
-#### Example interfaces:
-
-| Interface  | Method      | Purpose               |
-| ---------- | ----------- | --------------------- |
-| Runnable   | run()       | Thread execution      |
-| Callable   | call()      | Task returning result |
-| Comparator | compare()   | Sorting               |
-| Comparable | compareTo() | Natural ordering      |
-
-
-👉 Problems:
-
-- Verbose code
-- Hard to read
-- Boilerplate-heavy
-
-### After Java 8
-
-Introduced:
-- Lambda expressions
-- Streams API
-- Functional interfaces (java.util.function)
-
-👉 Goal:
-
-- Write concise, expressive code
-
-
-----
-
-## 4. Built-in Functional Interfaces (java.util.function)
-
---------------------
-
-### 1. Predicate<T>
-
-> boolean test(T t);
-
-#### Purpose:
-Test a condition (returns boolean)
-
-#### Example:
-
-> Predicate<Integer> isEven = x -> x % 2 == 0;
-
---------
-
-### 2. Function<T, R>
-> R apply(T t);
-
-#### Purpose:
-
-Transform input → output
-
-#### Example:
-
-> Function<Integer, Integer> square = x -> x * x;
-
----------------------
-
-### 3. Consumer<T>
-
-> void accept(T t);
-
-#### Purpose:
-
-Takes input, no return
-
-#### Example:
-
-> Consumer<String> print = x -> System.out.println(x);
-
------------------------
-
-### 4. Supplier<T>
-
-> T get();
-
-#### Purpose:
-
-Returns value, no input
-
-#### Example:
-
-> Supplier<Double> random = () -> Math.random();
-
------------------
-
-### 5. Bi-Functional Interfaces
-
-| Interface         | Method      | Purpose            |
-| ----------------- | ----------- | ------------------ |
-| BiPredicate<T,U>  | test(T,U)   | Boolean condition  |
-| BiFunction<T,U,R> | apply(T,U)  | Transform 2 inputs |
-| BiConsumer<T,U>   | accept(T,U) | Consume 2 inputs   |
-
------
-
-### 6. Unary & Binary Operators
-
-#### UnaryOperator<T>
-
-> T apply(T t);
-
-Same input & output type
-
-#### BinaryOperator<T>
-
-> T apply(T t1, T t2);
-
-##### Example:
-
-> BinaryOperator<Integer> add = (a, b) -> a + b;
-
------
-
-### 7. Primitive Functional Interfaces
-
-👉 Avoid boxing/unboxing overhead
-
-| Interface      | Method      |
-| -------------- | ----------- |
-| IntPredicate   | test(int)   |
-| IntFunction<R> | apply(int)  |
-| IntConsumer    | accept(int) |
-| IntSupplier    | getAsInt()  |
-
-✔ Same for:
-
-- Long
-- Double
-
-----------------------
-
-## 5. Custom Functional Interface
+Yes.
 
 ```java
 @FunctionalInterface
-interface MyInterface {
-void doSomething();
+interface Calculator {
+    int add(int a, int b);
+
+    default int addTen(int value) {
+        return add(value, 10);
+    }
+
+    static Calculator simple() {
+        return (a, b) -> a + b;
+    }
 }
 ```
 
-✔ Annotation is optional but recommended
+Default and static methods do not count as abstract methods.
 
+---
 
-#### ✅ Must have only ONE abstract method
+## Common Built-In Functional Interfaces
+
+| Interface           | Method                  | Use                             |
+|---------------------|-------------------------|---------------------------------|
+| `Predicate<T>`      | `boolean test(T value)` | Check condition                 |
+| `Function<T, R>`    | `R apply(T value)`      | Convert value                   |
+| `Consumer<T>`       | `void accept(T value)`  | Use value, return nothing       |
+| `Supplier<T>`       | `T get()`               | Provide value                   |
+| `UnaryOperator<T>`  | `T apply(T value)`      | Input and output same type      |
+| `BinaryOperator<T>` | `T apply(T a, T b)`     | Combine two values of same type |
+
+---
+
+## Predicate
+
+```
+Predicate<Integer> isEven = number -> number % 2 == 0;
+
+System.out.println(isEven.test(10)); // true
+```
+
+Useful for filters:
+
+```
+numbers.stream()
+    .filter(isEven)
+    .collect(Collectors.toList());
+```
+
+---
+
+## Function
 
 ```java
-interface A {
-    void m1();
-    void m2(); // ❌ Not functional
-}
+Function<String, Integer> length = value -> value.length();
 ```
 
-#### ✅ Can have default & static methods
+Useful for mapping:
 
 ```java
-interface A {
-void m1();
-
-    default void m2() {}
-    static void m3() {}
-}
+List<Integer> lengths = names.stream()
+    .map(length)
+    .collect(Collectors.toList());
 ```
 
+---
 
-#### ✅ Can extend another interface (with care)
+## Consumer
 
 ```java
-interface A {
-void m1();
-}
-
-interface B extends A {
-// still functional
-}
+Consumer<String> printer = value -> System.out.println(value);
 ```
 
-------------------
+Useful for actions:
 
-## Summary
+```
+names.forEach(printer);
+```
 
-- Functional interface = 1 abstract method
-- Introduced to support lambdas
-- Package: java.util.function
-- Examples:
-  - Predicate → condition
-  - Function → transform
-  - Consumer → consume
-  - Supplier → provide
+---
 
-- Supports:
-  - Method references
-  - Streams API
+## Supplier
 
+```java
+Supplier<LocalDateTime> now = () -> LocalDateTime.now();
+```
 
-| Type      | Input | Output  | Use       |
-| --------- | ----- | ------- | --------- |
-| Predicate | 1     | boolean | Filter    |
-| Function  | 1     | 1       | Map       |
-| Consumer  | 1     | void    | Print/use |
-| Supplier  | 0     | 1       | Generate  |
+Useful for lazy value creation.
 
+---
 
+## Primitive Functional Interfaces
 
+Primitive interfaces avoid boxing/unboxing.
+
+Examples:
+
+- `IntPredicate`
+- `IntFunction<R>`
+- `IntConsumer`
+- `IntSupplier`
+- `ToIntFunction<T>`
+- `LongPredicate`
+- `DoubleConsumer`
+
+Example:
+
+```java
+ToIntFunction<User> ageExtractor = User::getAge;
+```
+
+---
+
+## Edge Cases
+
+### Too Many Abstract Methods
+
+If an interface has more than one abstract method, lambda cannot target it.
+
+### Checked Exceptions
+
+Most Java built-in functional interfaces do not declare checked exceptions.
+
+If your lambda throws checked exception, handle it inside the lambda or create your own functional interface.
+
+### Null Lambda Reference
+
+```
+Predicate<String> predicate = null;
+predicate.test("A"); // NullPointerException
+```
+
+---
+
+## Best Practices
+
+- Use built-in functional interfaces when possible.
+- Create custom functional interfaces only when they make meaning clearer.
+- Use `@FunctionalInterface`.
+- Use primitive functional interfaces for heavy numeric processing.
+- Keep lambda logic small.
+
+---
+
+## Quick Summary
+
+Functional interfaces are the foundation of lambdas in Java 8. They have one abstract method and can also contain default and static methods.

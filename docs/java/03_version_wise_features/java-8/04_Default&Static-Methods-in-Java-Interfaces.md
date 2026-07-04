@@ -4,156 +4,167 @@ parent: Java-8
 nav_order: 4
 ---
 
-# Default & Static Methods in Java Interfaces
+# Default And Static Methods In Interfaces
 
-## 1. Introduction
+Java 8 allowed interfaces to have:
 
-Before Java 8, interfaces could only have:
-- Abstract methods
-- No method implementations
+- Default methods.
+- Static methods.
 
-Java 8 introduced:
-- **Default methods**
-- **Static methods**
+Before Java 8, interfaces mainly had abstract methods.
 
 ---
 
-## 2. Problem Before Java 8
+## Why Were Default Methods Introduced?
 
-Interfaces could not be modified without breaking existing implementations.
-
-### Example:
-```java
-interface List {
-    void add(Object o);
-}
-```
-
-If we add a new method:
-
-> void sort();
-
-❌ All existing classes (ArrayList, LinkedList, etc.) break.
-
-
-## 3. Default Methods
-   
-A default method is a method inside an interface with a body.
-
-```java
-interface List {
-    default void sort() {
-        System.out.println("Default sorting");
-    }
-}
-```
-
-### Why Default Methods?
-
-#### ✅ 1. Backward Compatibility
-Add new methods without breaking old code
-
-#### ✅ 2. API Evolution
-Modify interfaces like:
-- Collection
-- List
-- Iterable
-
-#### ✅ 3. Provide Common Behavior
-
-Share logic across implementations
+Before Java 8, adding a new method to an interface could break all existing implementations.
 
 Example:
 
 ```java
 interface Vehicle {
-    default void start() {
-        System.out.println("Vehicle starting");
+    void start();
+}
+```
+
+If we add:
+
+```java
+void stop();
+```
+
+then every class implementing `Vehicle` must implement `stop`.
+
+Java 8 default methods solve this.
+
+---
+
+## Default Method
+
+```java
+interface Vehicle {
+    void start();
+
+    default void stop() {
+        System.out.println("Vehicle stopped");
+    }
+}
+```
+
+Now old implementations do not break.
+
+They get default behavior automatically.
+
+---
+
+## Override Default Method
+
+```java
+class Car implements Vehicle {
+    @Override
+    public void start() {
+        System.out.println("Car started");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Car stopped");
+    }
+}
+```
+
+Implementing class can keep default behavior or override it.
+
+---
+
+## Diamond Problem
+
+If two interfaces have same default method, class must resolve conflict.
+
+```java
+interface A {
+    default void show() {
+        System.out.println("A");
     }
 }
 
+interface B {
+    default void show() {
+        System.out.println("B");
+    }
+}
+
+class C implements A, B {
+    @Override
+    public void show() {
+        A.super.show();
+// Or        B.super.show();
+        System.out.println("Resolved");
+    }
+}
 ```
 
-----------
+If class does not override `show`, compiler error occurs.
 
+---
 
-## 4. Static Methods in Interfaces
+## Static Methods In Interfaces
 
 Static methods belong to the interface itself.
 
 ```java
 interface MathUtil {
     static int add(int a, int b) {
-        return a + b;   
+        return a + b;
     }
 }
 ```
 
-### Usage:
-
-> MathUtil.add(10, 20);
-
-### Why Static Methods?
-
-**1. Utility Methods in Same Place**
-
-Keep related logic inside interface
-
-**2. Better Design (Cohesion)**
-Avoid separate utility classes
-
-------------------------
-
-| Feature     | Default Method    | Static Method      |
-| ----------- | ----------------- | ------------------ |
-| Belongs to  | Object (instance) | Interface          |
-| Overridable | Yes               | No                 |
-| Access      | obj.method()      | Interface.method() |
-| Purpose     | Extend behavior   | Utility/helper     |
-
-
-------
-
-## 6. Diamond Problem
-
-If multiple interfaces define same default method:
+Call using interface name:
 
 ```java
-interface A {
-    default void show() {}
-}
-
-interface B {
-    default void show() {}
-}
-
-class C implements A, B {
-    @override
-    public void show() {
-        A.super.show(); // calls A's show()
-        B.super.show(); // calls B's show()
-        System.out.println("Resolved");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        C obj = new C();
-        obj.show();
-    }
-}
-
+int result = MathUtil.add(10, 20);
 ```
 
-✔ Must override to resolve ambiguity
+You cannot call it through implementation object.
 
+---
 
-## Summary
-- Default methods allow adding new functionality safely
-- Static methods provide helper utilities inside interfaces
-- Both improved flexibility and API design in Java
+## Default vs Static
 
-> Default methods allow interfaces to have method implementations, while static methods provide utility functions within interfaces.
+| Feature           | Default Method                | Static Method         |
+|-------------------|-------------------------------|-----------------------|
+| Belongs to        | Implementing object           | Interface             |
+| Can be overridden | Yes                           | No                    |
+| Called using      | Object reference              | Interface name        |
+| Main use          | API evolution/common behavior | Utility/helper method |
 
-> Static methods in interfaces can be called directly using the interface name, but default methods require an implementing class instance and cannot be called directly.
+---
 
+## Daily Use Case
+
+Java collections used default methods to add new behavior without breaking old classes.
+
+Example:
+
+```
+list.sort(Comparator.naturalOrder());
+```
+
+This became possible because Java 8 allowed interfaces to evolve more safely.
+
+---
+
+## Best Practices
+
+- Use default methods for backward-compatible interface evolution.
+- Do not put too much business logic in interfaces.
+- Use static methods for small related helper methods.
+- Resolve default method conflicts explicitly.
+- Prefer classes/abstract classes when shared state is needed.
+
+---
+
+## Quick Summary
+
+Default methods let interfaces provide behavior without breaking old implementations. Static methods let interfaces keep related helper logic.

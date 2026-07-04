@@ -4,293 +4,304 @@ parent: Java-8
 nav_order: 1
 ---
 
-# Java Optional
+# Optional
+
+`Optional<T>` represents a value that may or may not be present.
+
+Simple meaning:
+
+> Instead of returning null, return a box that clearly says "value exists" or "value is missing".
 
 ---
 
-# 1. Why Optional Exists
+## Why Was Optional Introduced?
 
-`Optional<T>` is introduced to represent **a value that may or may not be present**.
+Before Java 8, missing values were usually represented with `null`.
 
-It helps:
-- Avoid accidental `NullPointerException`
-- Make absence explicit
-- Improve API readability
-- Enable functional-style transformations
+```
+User user = userRepository.findById(10);
 
-It is **not** a replacement for null everywhere.
-
----
-
-# 2. Where To Use Optional
-
-## Recommended Usage
-- Method return types
-- Repository/service layer
-- Stream pipelines
-- Value transformation chains
-
-Example:
-```java
-Optional<Employee> findById(int id);
+if (user != null) {
+    System.out.println(user.getName());
+}
 ```
 
-## Avoid Using In
+Problem:
 
-- Entity fields
-- DTO fields
-- Method parameters
-- Serialization models
-- JPA entities
+- Developer may forget null check.
+- Code can fail with `NullPointerException`.
+- Method return type does not clearly say value may be missing.
 
-Optional is for API boundaries, not internal model design.
+Java 8 introduced `Optional` to make absence explicit.
 
----
-
-# 3. Creating Optional
-
----
-
-## 3.1 Optional.of(value)
-   
 ```java
-Optional<Employee> emp = Optional.of(employee);
+Optional<User> user = userRepository.findById(10);
 ```
-- Does NOT allow null.
-- If value(employee) is null → throws NullPointerException.
-- Use only when 100% sure value is non-null.
 
-#### Example:
+---
+
+## Creating Optional
+
+### Optional.of
+
+Use when value must not be null.
+
+```java
+Optional<String> name = Optional.of("Mohan");
+```
+
+Edge case:
+
+```
+Optional.of(null); // NullPointerException
+```
+
+---
+
+### Optional.ofNullable
+
+Use when value may be null.
+
+```java
+String email = getEmail();
+
+Optional<String> optionalEmail = Optional.ofNullable(email);
+```
+
+If `email` is null, result is `Optional.empty()`.
+
+---
+
+### Optional.empty
+
+Represents no value.
+
+```java
+Optional<String> empty = Optional.empty();
+```
+
+---
+
+## Checking Value
+
+### isPresent
+
+```
+if (user.isPresent()) {
+    System.out.println(user.get().getName());
+}
+```
+
+This works, but it often becomes similar to null checks.
+
+Prefer `map`, `ifPresent`, `orElse`, or `orElseThrow` when they make code cleaner.
+
+---
+
+### ifPresent
+
+Runs code only when value exists.
+
+```
+user.ifPresent(value -> System.out.println(value.getName()));
+```
+
+If Optional is empty, nothing happens.
+
+Note:
+
+`ifPresentOrElse` is **not Java 8**. It was added in Java 9.
+
+---
+
+## Transforming Optional
+
+### map
+
+Use `map` when you want to convert the value inside Optional.
+
+```java
+Optional<String> userName = user.map(User::getName);
+```
+
+If user exists, it extracts name.
+
+If user is empty, result is empty.
+
+Edge case:
+
+If mapper returns null, result becomes `Optional.empty()`.
+
+```
+Optional<String> result = Optional.of("A").map(value -> null);
+System.out.println(result); // Optional.empty
+```
+
+---
+
+### flatMap
+
+Use `flatMap` when the method already returns Optional.
+
+```java
+Optional<String> phone = user.flatMap(User::getPhoneNumber);
+```
+
+Without `flatMap`, you may get:
+
+```
+Optional<Optional<String>>
+```
+
+With `flatMap`, you get:
+
+```
+Optional<String>
+```
+
+---
+
+### filter
+
+Keeps the value only if condition is true.
+
+```java
+Optional<User> activeUser = user.filter(User::isActive);
+```
+
+If condition is false, result becomes empty.
+
+---
+
+## Getting Value
+
+### get
+
+```java
+User value = user.get();
+```
+
+If Optional is empty:
 
 ```text
-Optional.of(null); // ❌ Throws NullPointerException
+NoSuchElementException
 ```
 
-## 3.2 Optional.ofNullable(value)
+Avoid `get()` unless you are already sure value exists.
+
+---
+
+### orElse
+
+Returns value if present, otherwise returns default.
 
 ```java
-Optional<Employee> emp = Optional.ofNullable(employee);
+String name = optionalName.orElse("Guest");
 ```
 
-- Allows null.
-- If value is null → returns Optional.empty().
-- If value is not null → wraps inside Optional.
+Important edge case:
 
-#### Example:
-
-```text
-Optional.ofNullable(null);
-// Result → Optional.empty
-```
-
-## 3.3 Optional.empty()
+`orElse` always evaluates the default value.
 
 ```java
-Optional<Employee> empty = Optional.empty();
+String name = optionalName.orElse(createDefaultName());
 ```
 
-- Represents absence of value.
-- isPresent() → false
-- toString() → "Optional.empty"
-
-#### Example:
-
-```
-Optional.empty().isPresent();
-// false
-```
+`createDefaultName()` runs even when `optionalName` has a value.
 
 ---
 
-# 4. Checking Value Presence
+### orElseGet
 
----
-
-## 4.1 isPresent()
-
-> optional.isPresent();
-
-- Returns true if value exists.
-- Returns false if empty.
-- Not preferred (leads to imperative style).
-
-## 4.2 ifPresent(Consumer)
-
-> optional.ifPresent(emp -> System.out.println(emp.getName()));
-
-- Executes code only if value exists.
-- If empty → does nothing.
-
-## 4.3 ifPresentOrElse() (Java 9+)
-
-```text
-optional.ifPresentOrElse(emp -> System.out.println(emp.getName()),
-() -> System.out.println("Not found")
-);
-```
-
-- Executes first block if present.
-- Executes second block if empty.
-
----
-
-# 5. Transforming Optional
-
----
-
-## 5.1 map(Function)
-
+Lazy version of `orElse`.
 
 ```java
-Optional<String> dept = optionalEmployee.map(Employee::getDepartment);
+String name = optionalName.orElseGet(() -> createDefaultName());
 ```
 
-- Applies function if value exists.
-- If empty → remains empty.
-- If mapper returns null → result becomes Optional.empty().
+Here `createDefaultName()` runs only if Optional is empty.
 
-Example:
+Use `orElseGet` when default value is expensive to create.
 
-> Optional.of("ABC").map(String::toLowerCase);     
-> // Optional[abc]
+---
 
+### orElseThrow
 
-## 5.2 flatMap(Function)
-
-Used when function already returns Optional.
+Throw exception when value is missing.
 
 ```java
-Optional<String> phone = optionalEmployee.flatMap(emp ->
-Optional.ofNullable(emp.getPhoneNumber()));
+User user = userRepository.findById(id)
+    .orElseThrow(() -> new IllegalArgumentException("User not found: " + id));
 ```
 
-- Prevents nested Optional.
-- If empty → remains empty.
+In Java 8, `orElseThrow` requires an exception supplier.
 
-Without flatMap:        
-
-`Optional<Optional<String>>`
-
-With flatMap:      
-
-`Optional<String>` 
-
-
-## 5.3 filter(Predicate)
-
-> optionalEmployee.filter(Employee::isActive);
-
-- Keeps value if condition true.
-- If condition false → becomes empty.
-- If already empty → stays empty.
-
-Example:
-
-> Optional.of(10).filter(n -> n > 20);       
-> // Optional.empty
+No-argument `orElseThrow()` was added in Java 10.
 
 ---
 
-# 6. Retrieving Values
-
----
-
-## 6.1 get()
-
-> optional.get();
-
-- Returns value if present.
-- If empty → throws NoSuchElementException.
-- Not recommended unless absolutely certain.
-
-#### Example:
-
-> Optional.empty().get();    
-> // ❌ NoSuchElementException
-
-
-## 6.2 orElse(T other)
-
-> optional.orElse(defaultValue);
-
-- Returns value if present.
-- If empty → returns defaultValue.
-- ⚠ Always evaluates defaultValue (even if not needed).
-
-####cExample:
-
-> Optional.of("ABC").orElse(expensiveMethod());     
-> // expensiveMethod() still executes
-
-## 6.3 orElseGet(Supplier)
-
-> optional.orElseGet(() -> createDefault());
-
-- Lazy evaluation.
-- Supplier runs only if empty.
-- Preferred over orElse() when default creation is expensive.
-
-## 6.4 orElseThrow()
-
-> optional.orElseThrow(() -> new RuntimeException("Not found"));
-
-- Returns value if present.
-- If empty → throws provided exception.
-- Best practice in service layer.
-
----
-
-# 7. Response Behavior Summary
-
-| Expression                                  | Result                   |
-| ------------------------------------------- | ------------------------ |
-| `Optional.of(null)`                         | ❌ NullPointerException   |
-| `Optional.ofNullable(null)`                 | Optional.empty           |
-| `Optional.empty().isPresent()`              | false                    |
-| `Optional.empty().get()`                    | ❌ NoSuchElementException |
-| `Optional.of("A").map(String::toLowerCase)` | Optional[a]              |
-| `Optional.of(10).filter(n -> n > 20)`       | Optional.empty           |
-| `Optional.of("A").orElse("B")`              | A                        |
-| `Optional.empty().orElse("B")`              | B                        |
-
----
-
-# 8. Real Service Example
+## Daily Coding Example
 
 ```java
-
-  public String getEmployeeDepartment(int id) {
-       return employeeRepository.findById(id)
-       .filter(Employee::isActive)
-       .map(Employee::getDepartment)
-       .orElseThrow(() ->
-       new IllegalArgumentException("Active employee not found"));
-   }
+public String getActiveUserEmail(long userId) {
+    return userRepository.findById(userId)
+        .filter(User::isActive)
+        .map(User::getEmail)
+        .orElseThrow(() -> new IllegalArgumentException("Active user email not found"));
+}
 ```
 
-Pipeline Flow:
+Flow:
 
-- Find employee
-- Check active
-- Extract department
-- Throw if missing
-
-No null checks required.
+1. Find user.
+2. Keep only active user.
+3. Extract email.
+4. Throw clear exception if missing.
 
 ---
 
-## 9. Best Practices
+## Where To Use Optional
 
-| Scenario               | Use Optional?     |
-| ---------------------- | ----------------- |
-| Repository return type | ✅ Yes             |
-| Service return type    | ✅ Yes             |
-| Entity field           | ❌ No              |
-| DTO field              | ❌ No              |
-| Method parameter       | ❌ No              |
-| Stream transformation  | ✅ Yes             |
-| Throw if missing       | ✅ Use orElseThrow |
+Good places:
+
+- Method return type.
+- Repository/service methods.
+- Stream transformation result.
+- Places where "missing value" is normal.
+
+Avoid:
+
+- Entity fields.
+- DTO fields.
+- Method parameters.
+- Serialization models.
+- JPA fields.
 
 ---
 
+## Common Exceptions
 
+| Code                                    | Result                   |
+|-----------------------------------------|--------------------------|
+| `Optional.of(null)`                     | `NullPointerException`   |
+| `Optional.empty().get()`                | `NoSuchElementException` |
+| `optional.orElseThrow(...)` when empty  | Your supplied exception  |
+| `optional.map(null)`                    | `NullPointerException`   |
+| `optional.flatMap(mapperReturningNull)` | `NullPointerException`   |
+
+---
+
+## Best Practices
+
+- Use `Optional` mainly as a return type.
+- Prefer `orElseGet` when default value is costly.
+- Prefer `orElseThrow` for required values.
+- Avoid `get()` in normal code.
+- Do not use Optional fields in JPA entities.
+- Do not use Optional just to replace every null blindly.
+
+---
+
+## Quick Summary
+
+Optional is a clear way to represent "value may be missing". It reduces accidental null problems, but it should mainly be used as a return type, not as fields or parameters.
