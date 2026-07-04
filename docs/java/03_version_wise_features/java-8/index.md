@@ -12,30 +12,6 @@ Java 8 is one of the most important Java releases. It changed how Java developer
 
 ---
 
-
-1. [Optional](01_Optional.md)
-2. [Lambda Expressions](02_Lambda-Expressions.md)
-3. [Functional Interfaces](03_Functional-Interfaces.md)
-4. [Default and Static Methods in Interfaces](04_Default&Static-Methods-in-Java-Interfaces.md)
-5. [Method References](05_method-references.md)
-6. [Stream API](06_streams/)
-7. [Collectors](06_collectors-deep-dive.md)
-8. [Parallel Streams](07_parallel-streams.md)
-9. [Date and Time API](08_date-time-api.md)
-10. [CompletableFuture](09_completablefuture.md)
-11. [Map Enhancements](10_map-enhancements.md)
-12. [Comparator Enhancements](11_comparator-enhancements.md)
-13. [Collection Default Methods](12_collection-default-methods.md)
-14. [Base64 API](13_base64-api.md)
-15. [Files and IO Enhancements](14_files-io-enhancements.md)
-16. [Concurrency Enhancements](15_concurrency-enhancements.md)
-17. [Primitive Streams and Optional Types](16_primitive-streams-and-optionals.md)
-18. [Annotations and Parameter Reflection](17_annotations-and-parameter-reflection.md)
-19. [Metaspace and JVM Changes](18_metaspace-and-jvm-changes.md)
-20. [Utility API Improvements](19_utility-api-improvements.md)
-
----
-
 ## Java 8 Feature Map
 
 | Area          | Feature                                     | Developer Meaning                                                 |

@@ -12,16 +12,6 @@ The biggest theme of Java 9 was **modularization**. Java moved from one large ru
 
 Java 9 also added many daily-use improvements in collections, streams, optional, process handling, concurrency, tooling, JVM logging, security, and packaging.
 
----
-
-1. [Module System](01-module-system.md)
-2. [JShell](02-jshell.md)
-3. [Collection Factory Methods](03-collection-factory-methods.md)
-4. [Stream API Enhancements](04-stream-api-enhancements.md)
-5. [Optional Enhancements](05-optional-enhancements.md)
-6. [Private Interface Methods](06-private-interface-methods.md)
-7. [Try-With-Resources and Diamond Operator Enhancements](07-try-with-resources-and-diamond.md)
-8.  [JVM and Runtime Improvements](08-jvm-runtime-improvements.md)
 
 ---
 

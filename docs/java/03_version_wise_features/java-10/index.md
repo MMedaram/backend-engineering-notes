@@ -14,14 +14,6 @@ Java 10 was a **short-term release**, not an LTS release. It was smaller than Ja
 
 It also improved **unmodifiable collections, Optional, JVM startup, garbage collection, release versioning, certificates, and some tooling**.
 
----
-
-
-1. [Local Variable Type Inference - var](01-local-variable-type-inference-var.md)
-2. [Unmodifiable Collections](02-unmodifiable-collections.md)
-3. [Optional orElseThrow](03-optional-orelsethrow.md)
-4. [JVM Performance Improvements](04-jvm-performance-improvements.md)
-5. [Release Versioning and Migration Notes](05-release-versioning-and-migration-notes.md)
 
 ---
 

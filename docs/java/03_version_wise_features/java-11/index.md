@@ -14,17 +14,6 @@ For backend developers, Java 11 is important because it added useful everyday AP
 
 ---
 
-1. [Everyday API Improvements](01-everyday-api-improvements.md)
-2. [HTTP Client Standard API](02-http-client-standard-api.md)
-3. [var In Lambda Parameters](03-var-in-lambda-parameters.md)
-4. [Single-File Source-Code Programs](04-single-file-source-code-programs.md)
-5. [Removed Java EE and CORBA Modules](05-removed-java-ee-and-corba-modules.md)
-6. [JVM Tooling and GC Improvements](06-jvm-tooling-and-gc-improvements.md)
-7. [Security and Crypto Improvements](07-security-and-crypto-improvements.md)
-8. [Deprecations and Migration Notes](08-deprecations-and-migration-notes.md)
-
----
-
 ## Java 11 Feature Map
 
 | Area        | Feature                                 | Developer Meaning                                      |
