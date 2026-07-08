@@ -359,10 +359,9 @@ public class Customer {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Customer)) {
+        if (!(obj instanceof Customer other)) {
             return false;
         }
-        Customer other = (Customer) obj;
         return Objects.equals(email, other.email)
                 && Objects.equals(countryCode, other.countryCode);
     }
@@ -1235,10 +1234,9 @@ public boolean equals(Object obj) {
     if (this == obj) {
         return true;
     }
-    if (!(obj instanceof Product)) {
+    if (!(obj instanceof Product other)) {
         return false;
     }
-    Product other = (Product) obj;
     return Objects.equals(code, other.code)
             && Objects.equals(country, other.country);
 }
