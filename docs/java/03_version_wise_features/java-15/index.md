@@ -63,6 +63,24 @@ Important:
 
 Preview features need explicit compile/run flags.
 
+### Records — Second Preview
+
+Java 15 continued records as a refined preview. Java 16 standardized them.
+
+[Read the canonical Java 16 Records note →](../java-16/01-records-standard.md)
+
+### Sealed Classes — Preview
+
+Java 15 introduced explicit permitted subtype families as a preview feature. Java 17 standardized them.
+
+[Read the canonical Java 17 Sealed Classes note →](../java-17/01-sealed-classes-standard.md)
+
+### Pattern Matching for `instanceof` — Second Preview
+
+Java 15 continued the feature as a refined preview. Java 16 standardized it.
+
+[Read the canonical Java 16 Pattern Matching note →](../java-16/02-pattern-matching-instanceof-standard.md)
+
 Incubator APIs are not final and can change in later Java versions.
 
 Standard features do not need preview flags.
@@ -95,6 +113,14 @@ These are useful for performance, production support, migration, and interviews:
 8. DatagramSocket API reimplementation
 9. RMI Activation deprecation
 10. compressed heap dumps with `jcmd`
+
+---
+
+## Java 15 Production and Migration Notes
+
+1. [Core Library, Runtime, and Tooling Improvements](02-core-library-runtime-and-tooling-improvements.md)
+2. [GC, Memory, and Runtime Improvements](03-gc-memory-and-runtime-improvements.md)
+3. [Security, Networking, and Migration Notes](04-security-networking-and-migration-notes.md)
 
 ---
 

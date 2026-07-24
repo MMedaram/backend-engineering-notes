@@ -45,6 +45,18 @@ Important:
 
 Preview features are not final. They need explicit compile/run flags and can change before becoming standard.
 
+### Text Blocks — Preview
+
+Java 13 introduced multi-line string literals as a preview feature. Java 15 made the final form standard.
+
+[Read the canonical Java 15 Text Blocks note →](../java-15/01-text-blocks-standard.md)
+
+### Switch Expressions — Second Preview
+
+Java 13 replaced Java 12's `break value` with `yield value` in block rules. Java 14 standardized the feature.
+
+[Read the canonical Java 14 Switch Expressions note →](../java-14/03-switch-expressions-standard.md)
+
 ---
 
 ## Daily Coding Topics To Focus First

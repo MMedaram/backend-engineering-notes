@@ -59,6 +59,24 @@ Important:
 
 Preview features need explicit compile/run flags.
 
+### Records — Preview
+
+Java 14 introduced records as compact data carriers behind preview flags. Java 16 standardized them.
+
+[Read the canonical Java 16 Records note →](../java-16/01-records-standard.md)
+
+### Pattern Matching for `instanceof` — Preview
+
+Java 14 introduced a combined type test and flow-scoped binding as a preview feature. Java 16 standardized it.
+
+[Read the canonical Java 16 Pattern Matching note →](../java-16/02-pattern-matching-instanceof-standard.md)
+
+### Text Blocks — Second Preview
+
+Java 14 refined text blocks, including the `\s` and line-continuation escapes. Java 15 standardized the feature.
+
+[Read the canonical Java 15 Text Blocks note →](../java-15/01-text-blocks-standard.md)
+
 Incubator APIs are not final and can change in later Java versions.
 
 Experimental JVM features may need special JVM flags and should be tested carefully before production use.
@@ -118,4 +136,3 @@ For interviews, Java 14 is commonly discussed as:
 ## Quick Summary
 
 Java 14 made switch expressions production-ready, introduced records and pattern matching for `instanceof` as preview features, improved NPE messages, continued text blocks as a second preview, added useful runtime/tooling improvements like JFR event streaming and `jpackage`, and removed old pieces like CMS GC and Pack200.
-

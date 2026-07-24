@@ -440,7 +440,84 @@ Always use parameters for external input.
 
 ---
 
+## Compiler behavior
+
+The compiler processes incidental indentation, line terminators, and text-block escapes before creating an ordinary `String` value. The closing delimiter position participates in indentation calculation. Use `\s` only when a trailing space is significant and a trailing `\` only when suppressing a physical newline is intentional.
+
+---
+
+## JVM behavior
+
+A text block has no special runtime type: after compilation it is an immutable `String`. It does not defer interpolation, parameterize values, or provide a template engine. Repeated formatting still creates ordinary strings and allocations.
+
+---
+
+## Spring Boot usage
+
+Text blocks are excellent for integration-test JSON payloads, SQL test fixtures, and readable static templates. For production request and response bodies, prefer serializing DTOs with Jackson rather than manually constructing JSON.
+
+For SQL, use parameter binding through JDBC, JPA, or Spring Data. A text block makes static SQL readable; it does not make dynamic SQL safe.
+
+---
+
+## Hibernate/JPA notes
+
+Use text blocks to improve readability of JPQL or native queries, including annotation-based queries. Bind every runtime value through named or positional parameters. Native-query portability, result mapping, and database-specific SQL remain separate concerns to test.
+
+---
+
+## Jackson behavior
+
+Jackson receives a normal string. Text blocks are a strong fit for explicit test fixtures, but object serialization is safer for production JSON because it tracks DTO field changes and escaping rules automatically.
+
+---
+
+## Performance
+
+Static text blocks have ordinary string-literal cost. Avoid repeated `.formatted()` calls in tight loops and do not build large dynamic payloads as strings when a serializer or builder is more appropriate. Profile allocation-heavy paths.
+
+---
+
+## Common mistakes
+
+1. Assuming source indentation is always preserved exactly.
+2. Using `.formatted()` with untrusted values to construct SQL.
+3. Forgetting that the final newline can be part of the value.
+4. Treating a text block as JSON validation or escaping.
+5. Hiding large independently owned templates in annotations.
+
+---
+
+## Daily coding sample
+
+```
+String requestBody = """
+    {
+      "customerId": "%s",
+      "amount": %s
+    }
+    """.formatted(customerId, amount);
+
+mockMvc.perform(post("/payments")
+        .contentType(APPLICATION_JSON)
+        .content(requestBody))
+    .andExpect(status().isCreated());
+```
+
+This is appropriate for an explicit integration-test fixture. In application code, pass a request DTO to Jackson instead.
+
+---
+
+## Interview questions
+
+1. How is incidental indentation determined?
+2. Is a text block a JVM type distinct from `String`?
+3. Why does a text block not prevent SQL injection?
+4. What do `\s` and trailing `\` do?
+5. When would a resource file be preferable?
+
+---
+
 ## Summary one-liner
 
 Java 15 made text blocks a standard feature, allowing readable multi-line strings for SQL, JSON, XML, HTML, and test data without noisy escapes and concatenation.
-

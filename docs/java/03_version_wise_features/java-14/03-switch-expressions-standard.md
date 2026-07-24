@@ -396,7 +396,98 @@ If most branches do side effects, a switch statement may be clearer.
 
 ---
 
+## Compiler behavior
+
+The compiler requires every reachable switch-expression path to produce a value or complete abruptly, for example by throwing an exception. It rejects duplicate labels and prevents accidental fall-through for arrow rules.
+
+For enum selectors, an expression can omit `default` when every constant is covered. Prefer that when a newly added enum constant should force a compile-time review; otherwise make the unknown-input policy explicit.
+
+Java 12 preview block rules used `break value`; Java 13 introduced `yield`, which is the final Java 14+ syntax. Remove `--enable-preview` after upgrading production code to Java 14 or later.
+
+---
+
+## JVM behavior
+
+Switch expressions are language syntax, not a new runtime object model. Depending on selector and case shape, the compiler commonly emits traditional `tableswitch` or `lookupswitch` bytecode plus code to produce the result.
+
+They do not inherently allocate objects. Cost is determined by selector computation, branch distribution, and case work; profile hot paths rather than assuming dispatch is the bottleneck.
+
+---
+
+## Spring Boot usage
+
+Use switch expressions for focused mappings in controllers, services, and exception handlers:
+
+```java
+HttpStatus status = switch (error.code()) {
+    case VALIDATION_FAILED -> HttpStatus.BAD_REQUEST;
+    case PAYMENT_DECLINED -> HttpStatus.UNPROCESSABLE_ENTITY;
+    case ACCOUNT_LOCKED -> HttpStatus.FORBIDDEN;
+};
+```
+
+Keep transactions, repository calls, remote calls, and retry logic out of large case bodies. If branches contain substantial behaviour, use a strategy, command handler, or polymorphic type.
+
+---
+
+## Hibernate/JPA notes
+
+Switch on stable domain enums rather than database strings or provider internals. For persisted enums, `@Enumerated(EnumType.STRING)` is usually safer unless a deliberate numeric schema contract exists.
+
+Review every mapping when an enum gains a value. A `default` can hide a missing business decision; exhaustive switches can make the compiler expose it during the build.
+
+---
+
+## Jackson behavior
+
+Jackson serializes a switch result normally; it does not validate external input before application code reaches the switch. Configure enum deserialization and validation deliberately, and do not map an unknown client value to a valid business state through a permissive `default`.
+
+---
+
+## Performance
+
+Choose a switch expression for readability and correctness first. Dense integer/enum cases may compile to efficient jump tables; sparse or string cases have different matching costs. The common production performance issue is expensive work hidden inside a case, not the dispatch form.
+
+---
+
+## Common mistakes
+
+1. Using `default` to silently hide a new enum state.
+2. Copying Java 12 `break value` into Java 14+ code.
+3. Mixing mapping logic with database or network side effects.
+4. Using a switch for an expanding, behavior-rich hierarchy that needs polymorphism.
+5. Assuming `default` handles a null selector; in Java 14 it does not.
+
+---
+
+## Daily coding sample
+
+```java
+public PaymentView toView(Payment payment) {
+    String displayStatus = switch (payment.status()) {
+        case CREATED, AUTHORIZED -> "IN_PROGRESS";
+        case CAPTURED -> "COMPLETED";
+        case DECLINED, CANCELLED -> "FAILED";
+    };
+    return new PaymentView(payment.id(), displayStatus, payment.amount());
+}
+```
+
+This is a good fit because it is a pure, closed mapping. Test every status and add a test whenever the enum changes.
+
+---
+
+## Interview questions
+
+1. How does a switch expression differ from a switch statement?
+2. Why did Java replace `break value` with `yield`?
+3. When can the compiler enforce exhaustiveness?
+4. Does a switch expression change JVM dispatch semantics or allocate an object?
+5. When should polymorphism replace a switch?
+6. What happens when the selector is `null`?
+
+---
+
 ## Summary one-liner
 
 Java 14 made switch expressions standard, allowing `switch` to return a value, use arrow labels without fall-through, support multiple labels, and use `yield` from block cases.
-

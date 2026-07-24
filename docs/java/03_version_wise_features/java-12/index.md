@@ -54,6 +54,12 @@ Java 12 `switch` expressions were preview. Preview features are not final APIs. 
 
 In Java 12, switch expression examples used `break value` for returning from block cases. Later Java versions changed this direction and the final Java 14 version uses `yield`.
 
+### Switch Expressions — Preview
+
+Java 12 introduced switch expressions as a preview feature. Block rules returned a value with `break value`, which changed before standardization.
+
+[Read the canonical Java 14 Switch Expressions note →](../java-14/03-switch-expressions-standard.md)
+
 ---
 
 ## Daily Coding Topics To Generate First
