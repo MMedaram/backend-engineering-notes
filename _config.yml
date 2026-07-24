@@ -9,7 +9,7 @@ source: docs
 
 search_enabled: true
 
-aux_links:
-  GitHub Repository:
-    - https://github.com/mmedaram/backend-engineering-notes
+#aux_links:
+  #GitHub Repository:
+   # - https://github.com/mmedaram/backend-engineering-notes
 

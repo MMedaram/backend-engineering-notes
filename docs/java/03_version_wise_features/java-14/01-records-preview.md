@@ -1,0 +1,569 @@
+---
+title: Records Preview
+parent: Java-14
+nav_order: 1
+---
+
+# Java 14 - Records Preview
+
+Java 14 introduced **records** as a **preview feature**.
+
+Simple meaning:
+
+A record is a compact way to write a class that mainly carries data.
+
+It is useful when a class exists mostly to hold values like:
+
+- id
+- name
+- amount
+- status
+- request/response data
+- coordinates
+- small configuration values
+
+---
+
+## Preview Feature Status
+
+| Version | Status                      |
+|---------|-----------------------------|
+| Java 14 | Preview                     |
+| Java 15 | Second preview              |
+| Java 16 | Standard production feature |
+
+Important:
+
+In Java 14, records need preview flags.
+
+In modern Java projects, use Java 16+ records as the final version.
+
+---
+
+## Why was it introduced?
+
+Before records, simple data classes needed a lot of repeated code.
+
+Old style:
+
+```java
+import java.util.Objects;
+
+public final class UserDto {
+    private final long id;
+    private final String name;
+    private final String email;
+
+    public UserDto(long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
+    public long id() {
+        return id;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public String email() {
+        return email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserDto)) {
+            return false;
+        }
+        UserDto userDto = (UserDto) o;
+        return id == userDto.id
+                && Objects.equals(name, userDto.name)
+                && Objects.equals(email, userDto.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email);
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto[id=" + id + ", name=" + name + ", email=" + email + "]";
+    }
+}
+```
+
+This works, but it is too much code for a simple data holder.
+
+Problems:
+
+- more boilerplate
+- easy to forget `equals()`
+- easy to forget `hashCode()`
+- easy to make `toString()` poor for debugging
+- easy to add inconsistent constructor/accessor logic
+
+---
+
+## Record style
+
+```java
+public record UserDto(long id, String name, String email) {
+}
+```
+
+Java automatically gives:
+
+- private final fields
+- constructor
+- accessor methods
+- `equals()`
+- `hashCode()`
+- `toString()`
+
+So this:
+
+```
+UserDto user = new UserDto(101, "Mohan", "mohan@example.com");
+
+System.out.println(user.id());
+System.out.println(user.name());
+System.out.println(user.email());
+System.out.println(user);
+```
+
+can print something like:
+
+```text
+101
+Mohan
+mohan@example.com
+UserDto[id=101, name=Mohan, email=mohan@example.com]
+```
+
+---
+
+## Daily backend use case: response DTO
+
+```java
+public record OrderResponse(
+        long orderId,
+        String status,
+        long amount
+) {
+}
+```
+
+Use it when returning simple data from:
+
+- service methods
+- controllers
+- adapters
+- API clients
+- test fixtures
+
+Example:
+
+```java
+public OrderResponse getOrder(long orderId) {
+    Order order = orderRepository.findById(orderId)
+            .orElseThrow(() -> new IllegalArgumentException("Order not found: " + orderId));
+
+    return new OrderResponse(order.id(), order.status(), order.amount());
+}
+```
+
+---
+
+## Daily backend use case: validation in constructor
+
+Use a compact constructor when you need validation.
+
+```java
+public record Money(String currency, long amount) {
+
+    public Money {
+        if (currency == null || currency.isBlank()) {
+            throw new IllegalArgumentException("currency is required");
+        }
+        if (amount < 0) {
+            throw new IllegalArgumentException("amount cannot be negative");
+        }
+    }
+}
+```
+
+Important:
+
+You do not write `this.currency = currency` in a compact constructor.
+
+Java assigns the fields after the constructor body.
+
+---
+
+## Daily backend use case: map key
+
+Records are good as map keys because `equals()` and `hashCode()` are generated from all components.
+
+```java
+public record ProductKey(String productCode, String region) {
+}
+```
+
+```
+Map<ProductKey, Integer> stock = new HashMap<>();
+
+stock.put(new ProductKey("P100", "IN"), 50);
+
+Integer quantity = stock.get(new ProductKey("P100", "IN"));
+System.out.println(quantity);
+```
+
+Output:
+
+```text
+50
+```
+
+---
+
+## Daily backend use case: test data
+
+```java
+record LoginRequest(String username, String password) {
+}
+
+LoginRequest request = new LoginRequest("mohan", "secret");
+```
+
+Records are clean for small test-only values.
+
+---
+
+## Accessor names
+
+Record accessors use the component name directly.
+
+```java
+public record Customer(String name) {
+}
+```
+
+Correct:
+
+```
+customer.name();
+```
+
+Not generated by default:
+
+```
+customer.getName();
+```
+
+This matters when using frameworks or libraries that expect JavaBean-style getters.
+
+Modern frameworks often support records, but older versions may not.
+
+---
+
+## Shallow immutability
+
+Records are **shallowly immutable**.
+
+That means the record fields cannot be reassigned, but mutable objects inside the record can still change.
+
+Bad example:
+
+```java
+import java.util.List;
+
+public record Team(String name, List<String> members) {
+}
+```
+
+```
+List<String> members = new ArrayList<>();
+members.add("A");
+
+Team team = new Team("Backend", members);
+members.add("B");
+
+System.out.println(team.members());
+```
+
+Output:
+
+```text
+[A, B]
+```
+
+The record object did not change its `members` reference, but the list content changed.
+
+Better:
+
+```java
+import java.util.List;
+
+public record Team(String name, List<String> members) {
+
+    public Team {
+        members = List.copyOf(members);
+    }
+}
+```
+
+Now callers cannot mutate the record's internal list through the original list.
+
+---
+
+## Null handling
+
+Records allow `null` by default.
+
+```java
+UserDto user = new UserDto(101, null, null);
+```
+
+This is valid unless you add validation.
+
+If `null` is not allowed, validate it:
+
+```java
+import java.util.Objects;
+
+public record UserDto(long id, String name, String email) {
+
+    public UserDto {
+        name = Objects.requireNonNull(name, "name is required");
+        email = Objects.requireNonNull(email, "email is required");
+    }
+}
+```
+
+Possible exception:
+
+```text
+java.lang.NullPointerException: name is required
+```
+
+---
+
+## What records can and cannot do
+
+| Rule                                        | Meaning                                                |
+|---------------------------------------------|--------------------------------------------------------|
+| Record is final                             | You cannot extend a record                             |
+| Record extends `java.lang.Record`           | You cannot extend another class                        |
+| Record can implement interfaces             | Useful for small value objects with behavior contracts |
+| Components become final fields              | You cannot reassign them after construction            |
+| Record can have methods                     | You can add helper methods                             |
+| Record can have static fields/methods       | Shared constants/helpers are allowed                   |
+| Record cannot declare extra instance fields | State should come from record components               |
+
+Example with method:
+
+```java
+public record FullName(String firstName, String lastName) {
+
+    public String displayName() {
+        return firstName + " " + lastName;
+    }
+}
+```
+
+---
+
+## Compile and run Java 14 preview code
+
+Compile:
+
+```bash
+javac --release 14 --enable-preview UserDto.java
+```
+
+Run:
+
+```bash
+java --enable-preview UserDto
+```
+
+Run JAR:
+
+```bash
+java --enable-preview -jar app.jar
+```
+
+---
+
+## Edge cases and negative cases
+
+### 1. Missing preview flag
+
+```bash
+javac --release 14 UserDto.java
+```
+
+Possible result:
+
+```text
+error: records are a preview feature and are disabled by default
+```
+
+---
+
+### 2. Trying to extend a record
+
+Bad:
+
+```java
+public class SpecialUserDto extends UserDto {
+}
+```
+
+Possible result:
+
+```text
+cannot inherit from final UserDto
+```
+
+Records are final.
+
+---
+
+### 3. Trying to extend another class
+
+Bad:
+
+```java
+public record UserDto(long id) extends BaseDto {
+}
+```
+
+Possible result:
+
+```text
+compile-time error
+```
+
+Records already extend `java.lang.Record`.
+
+---
+
+### 4. Extra instance field
+
+Bad:
+
+```java
+public record UserDto(long id, String name) {
+    private String displayName;
+}
+```
+
+Possible result:
+
+```text
+field declaration must be static
+```
+
+Use a record component or calculate the value in a method.
+
+---
+
+### 5. Mutable component surprise
+
+Bad:
+
+```java
+public record Tags(List<String> values) {
+}
+```
+
+Problem:
+
+The list can still be changed by outside code.
+
+Better:
+
+```java
+public record Tags(List<String> values) {
+
+    public Tags {
+        values = List.copyOf(values);
+    }
+}
+```
+
+---
+
+### 6. `Record` name conflict
+
+Java 14 adds `java.lang.Record`.
+
+If an older project already has a class named `Record`, wildcard imports can become confusing.
+
+Bad:
+
+```java
+import com.myapp.*;
+
+Record record = new Record();
+```
+
+Better:
+
+```java
+import com.myapp.Record;
+
+Record record = new Record();
+```
+
+Use a specific import to make your intention clear.
+
+---
+
+### 7. Record component names are part of the API
+
+```java
+public record UserDto(long id, String name) {
+}
+```
+
+Callers use:
+
+```
+user.id();
+user.name();
+```
+
+If you rename `name` to `fullName`, callers must change.
+
+So do not rename record components casually in public APIs.
+
+---
+
+## Best practices
+
+1. Use records for simple immutable data carriers.
+2. Use records for DTOs, small responses, command objects, value objects, and test data.
+3. Add constructor validation when null or invalid values should not be allowed.
+4. Use defensive copies for mutable components like `List`, `Set`, `Map`, arrays, and `Date`.
+5. Do not use records for entities that need mutable lifecycle/state.
+6. Do not use records when inheritance is required.
+7. Be careful with frameworks that expect JavaBean getters.
+8. In Java 14, compile and run with preview flags.
+9. In modern projects, prefer Java 16+ records.
+
+---
+
+## Interview one-liner
+
+Java 14 introduced records as a preview feature to reduce boilerplate for simple data carrier classes. Records generate constructor, accessors, `equals()`, `hashCode()`, and `toString()`, and became standard in Java 16.
+
+---
+
