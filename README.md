@@ -1,4 +1,12 @@
-# Backend Engineering Roadmap
+A curated knowledge base of backend engineering concepts, written as **clear, concise, and practical notes**.
+
+
+👉 **Live site:**  
+https://mmedaram.github.io/backend-engineering-notes/
+
+---
+
+## Backend Engineering Roadmap
 
 This roadmap is designed for senior backend-engineering learning. Work through it in order, taking one topic at a time.
 
