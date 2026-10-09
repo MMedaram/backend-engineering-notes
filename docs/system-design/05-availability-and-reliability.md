@@ -411,3 +411,79 @@ For each critical user journey, ask:
 - [ ] How are recovery and failover tested?
 - [ ] What metrics and alerts reveal user-visible failure?
 
+-----------------
+## Practice Exercise
+
+#### 1. What does “available” mean for request acceptance versus actual delivery?
+
+These are separate availability measures:
+
+- **Request-acceptance availability:** The service can validate and durably
+  record a notification request or enqueue it for delivery. It should
+  acknowledge the request only after it is safely stored.
+- **Delivery availability:** The service can successfully hand the notification
+  to the selected provider and, where supported, confirm delivery.
+
+The service may accept requests while delivery is delayed. The API should report
+that the request was **accepted or queued**, not claim it was delivered.
+
+#### 2. What should happen if the SMS provider is down for 20 minutes?
+
+- Keep accepted requests in a durable queue, subject to available queue capacity.
+- Retry transient failures with bounded exponential backoff and jitter.
+- Use idempotency or deduplication so retries do not create duplicate customer notifications.
+- Monitor provider errors, queue depth, and the age of the oldest SMS.
+- Alert operators if delivery targets are at risk.
+- If the queue approaches capacity, apply backpressure or safely reject new requests rather than silently losing them.
+- After the retry limit, move failed messages to a dead-letter queue for investigation and controlled replay.
+
+Use another provider only if it is approved and the customer’s preferences and
+business rules allow it.
+
+#### 3. Which components are potential single points of failure?
+
+Potential single points include:
+
+- One application instance or one availability zone
+- A single database primary without a tested failover plan
+- One queue broker or unavailable queue cluster
+- A shared cache if the application cannot operate without it
+- A single SMS provider
+- DNS, identity, or network dependencies without a fallback
+
+A component is a practical single point of failure when its outage stops a
+critical user journey. For example, Redis should not become one if the service
+can safely fall back to a database with rate limits.
+
+#### 4. Which notifications may be delayed or dropped first during overload?
+
+Delay **promotional notifications** first: similar-item suggestions, product
+launches, and marketing campaigns. They can use a lower-priority queue and be
+paused or discarded according to product policy.
+
+Preserve **transactional notifications** such as order placed, shipped, or
+delivered at higher priority. If they cannot be delivered within their target,
+keep them queued and surface the delay operationally rather than silently
+dropping them.
+
+#### 5. Suggest one SLI/SLO and reasonable RTO/RPO
+
+**Assumptions:** The service accepts requests into durable storage before
+acknowledging them. Transactional requests are more important than promotional
+requests. The targets below are an initial proposal and should be confirmed with
+product and operations teams.
+
+- **SLI:** Percentage of valid transactional notification requests durably
+  accepted by the service.
+- **SLO:** At least **99.9%** of valid requests are durably accepted each calendar
+  month.
+- **RTO:** **30 minutes** to restore request acceptance after a major service
+  outage.
+- **RPO:** **5 minutes** maximum of accepted notification data may be lost after
+  a disaster.
+
+For delivery, define a separate SLO—for example, “95% of transactional
+notifications are submitted to their provider within 30 seconds.” Provider
+outages may affect that delivery SLO even while request acceptance remains
+available.
+
