@@ -14,6 +14,10 @@ defaults:
 
 search_enabled: true
 
+mermaid:
+  version: "10.9.3"
+
+
 aux_links:
   GitHub Repository:
     - https://github.com/mmedaram/backend-engineering-notes
