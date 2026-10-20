@@ -200,13 +200,13 @@ Routing is often:
 
 ## API Gateway vs Direct Service Access
 
-| Aspect | Direct Access | API Gateway |
-|----|----|----|
-| Entry point | Many | One |
-| Security | Duplicated | Centralized |
-| Client complexity | High | Low |
-| Observability | Limited | Centralized |
-| Versioning | Hard | Easy |
+| Aspect            | Direct Access | API Gateway |
+|-------------------|---------------|-------------|
+| Entry point       | Many          | One         |
+| Security          | Duplicated    | Centralized |
+| Client complexity | High          | Low         |
+| Observability     | Limited       | Centralized |
+| Versioning        | Hard          | Easy        |
 
 ---
 
