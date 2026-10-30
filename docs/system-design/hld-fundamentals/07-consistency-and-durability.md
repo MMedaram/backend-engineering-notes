@@ -1,6 +1,6 @@
 ---
 title: Consistency and Durability
-parent: System Design
+parent: High-Level Design (HLD) Fundamentals
 nav_order: 7
 ---
 

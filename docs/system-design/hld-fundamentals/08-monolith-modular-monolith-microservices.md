@@ -1,6 +1,6 @@
 ---
 title: Monolith vs Modular Monolith vs Microservices
-parent: System Design
+parent: High-Level Design (HLD) Fundamentals
 nav_order: 8
 ---
 

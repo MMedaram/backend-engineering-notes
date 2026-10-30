@@ -1,6 +1,6 @@
 ---
 title: Reverse Proxy
-parent: System Design
+parent: High-Level Design (HLD) Fundamentals
 nav_order: 10
 ---
 

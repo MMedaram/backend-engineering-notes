@@ -1,6 +1,6 @@
 ---
 title: Scalability
-parent: System Design
+parent: High-Level Design (HLD) Fundamentals
 nav_order: 6
 ---
 

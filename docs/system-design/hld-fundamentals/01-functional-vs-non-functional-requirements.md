@@ -1,6 +1,6 @@
 ---
 title: Functional vs Non-Functional Requirements
-parent: System Design
+parent: High-Level Design (HLD) Fundamentals
 nav_order: 1
 ---
 

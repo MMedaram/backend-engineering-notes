@@ -1,6 +1,6 @@
 ---
 title: Assumptions and Constraints
-parent: System Design
+parent: High-Level Design (HLD) Fundamentals
 nav_order: 2
 ---
 

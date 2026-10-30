@@ -1,6 +1,6 @@
 ---
 title: Load Balancers
-parent: System Design
+parent: High-Level Design (HLD) Fundamentals
 nav_order: 9
 ---
 

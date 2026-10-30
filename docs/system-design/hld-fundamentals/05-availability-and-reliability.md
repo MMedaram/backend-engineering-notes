@@ -1,6 +1,6 @@
 ---
 title: Availability and Reliability
-parent: System Design
+parent: High-Level Design (HLD) Fundamentals
 nav_order: 5
 ---
 

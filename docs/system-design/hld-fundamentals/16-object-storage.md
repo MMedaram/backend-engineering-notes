@@ -1,6 +1,6 @@
 ---
 title: Object Storage
-parent: System Design
+parent: High-Level Design (HLD) Fundamentals
 nav_order: 17
 ---
 
